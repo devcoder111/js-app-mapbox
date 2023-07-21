@@ -1,0 +1,6 @@
+.idea
+.DS_STORE
+.env.local
+.vscode
+node_modules
+public/dist
