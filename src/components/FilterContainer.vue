@@ -1400,7 +1400,7 @@ export default {
     },
     filter: {
       handler(val, oldVal) {
-        console.log("filter changed--", val);
+        console.log("filter changed--", val, oldVal);
         //this.goPossessionPage == false this is for keeping the params when redirect to single page
         if (this.goPossessionPage == false) {
           this.$router.push({

@@ -442,6 +442,7 @@ export default {
       job_file_filter: null,
       result: [],
       originResult: [],
+      soldLots: [],
       resultKeyValue: {},
       visibleItemIds: [],
       tableData: [],
@@ -754,6 +755,7 @@ export default {
         .then((response) => {
           $this.result = response.data.items;
           this.originResult = response.data.items;
+          this.soldLots = response.data.sold_lots;
           $this.changeOrder();
           $this.loading = false;
           this.$emit("onLoaded");
@@ -792,7 +794,7 @@ export default {
       }
       this.resultKeyValue = keyBy(this.result, "id");
       console.log("resultKeyValue-", this.resultKeyValue);
-      this.$emit("onResult", this.result);
+      this.$emit("onResult", this.result, this.soldLots);
     },
     setVisibleItems(itemIds) {
       console.log("setVisibleItems-", itemIds);

@@ -174,7 +174,7 @@ export default {
     onRefresh() {
       this.$refs.resultContainer.refresh();
     },
-    onResult(items) {
+    onResult(items, soldLots) {
       let style = window.getComputedStyle(
         document.getElementsByClassName("map-container")[0]
       );
@@ -188,7 +188,7 @@ export default {
         this.$refs.resultContainer.setVisibleItems(itemIds);
       } else {
         // this.$refs.mapContainer.refreshMarkers(items);
-        this.$refs.mapContainer.refresh(items);
+        this.$refs.mapContainer.refresh(items, soldLots);
         this.$refs.resultContainer.setVisibleItems(itemIds);
       }
     },

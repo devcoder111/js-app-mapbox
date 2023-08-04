@@ -9,7 +9,7 @@
       </div>
       <div style="padding: 5px">
         <h3 v-html="home.title"></h3>
-        <div>{{ home.street }}, {{ home.community_name }}</div>
+        <!-- <div>{{ home.street }}, {{ home.community_name }}</div>
         <div v-if="home.guaranted_date != ''">
           <strong>Availability: </strong
           ><span>
@@ -22,7 +22,7 @@
             {{ formatOnlyDate(home.completion_date) }} -
             {{ formatOnlyDate(home.end_completion_date.date) }}
           </span>
-        </div>
+        </div> -->
         <div class="info-box">
           <div class="features">
             <div class="feature">
@@ -84,7 +84,13 @@
         }}</span>
       </div>
     </div>
-    <div v-else class="non-home-content">{{ propertyName }}</div>
+    <div v-else class="non-home-content">
+      <div>{{ properties.name }}</div>
+      <div v-if="properties.additionalType">
+        <div>{{ properties.subtitle }}</div>
+        <div>{{ properties.description }}</div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -96,8 +102,8 @@ export default {
     home: {
       type: Object,
     },
-    propertyName: {
-      type: String,
+    properties: {
+      type: Object,
     },
   },
   data() {
@@ -131,7 +137,7 @@ export default {
     },
   },
   mounted() {
-    console.log("mappopup mounted--", this);
+    // console.log("mappopup mounted--", this);
   },
   computed: {
     price_visible() {
