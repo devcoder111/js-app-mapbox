@@ -1,9 +1,7 @@
 <template>
   <div class="map-container">
     <div class="back-btn-wrapper">
-      <a-button @click="backCommunities" class="customBtn"
-        >Back {{ startingLoadData }}</a-button
-      >
+      <a-button @click="backCommunities" class="customBtn">Back</a-button>
     </div>
     <div class="map-colors-info" v-if="this.$route.name == 'quick-possessions'">
       <div class="map-color map-color-available"><span></span> Available</div>
@@ -180,10 +178,10 @@ export default {
   methods: {
     backCommunities() {
       this.$store.state.filter.communities = [];
-      var mapCenter = [-113.49848717382815, 53.54067477803275];
+      var mapCenter = [-113.59475, 53.534637];
       this.map.flyTo({
         center: mapCenter,
-        zoom: 9.6,
+        zoom: 9.5,
       });
       // this.$router.push({});
       // this.$emit("onRefresh");
@@ -201,14 +199,14 @@ export default {
     },
     setUpMap() {
       mapboxgl.accessToken = this.accessToken;
-      // var mapCenter = [-113.49848717382815, 53.54067477803275];
+
       var mapCenter = [-113.59475, 53.534637];
 
       this.map = new mapboxgl.Map({
         container: "mapContainer",
         style: "mapbox://styles/sterlinghomes/cliebkgik001z01r970icbhmf",
         center: mapCenter,
-        zoom: 9.6,
+        zoom: 9.5,
       });
       var that = this;
       that.map.resize();

@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div class="banner_wrapper">
+    <div class="banner_wrapper" :hidden="isMobile && mode == 'map'">
       <img src="../assets/banner.png" alt="Banner" class="banner_img" />
       <h2 class="banner_title">Quick Possessions</h2>
       <quick-filter @onRefresh="onRefresh" />

@@ -8,6 +8,9 @@
     margin-right: 0;
   }
 }
+.d-none{
+  display: none;
+}
 .loading_wrapper {
   position: absolute;
   top: 50%;
@@ -86,9 +89,9 @@
 input.ant-input{
   border-radius: 20px !important;
 }
-.lf-base-content{
-  z-index: 1001 !important;
-}
+// .lf-base-content{
+//   z-index: 1001 !important;
+// }
 .hide-desktop{
   display: none !important;
 }
@@ -1157,6 +1160,9 @@ input.ant-input{
     .home-status{
       width: 100%;
     }
+  }
+  .main-container .map-container .back-btn-wrapper {
+    top:50px;
   }
   
   .main-container {
