@@ -140,7 +140,9 @@
             ${{ formatMoney(item.starting_from) }}
           </div>
           <div v-if="item.starting_from == 0">
-            ${{ formatMoney(item.newstar_price) }}
+            <div v-if="item.newstar_price > 0">
+              ${{ formatMoney(item.newstar_price) }}
+            </div>
           </div>
 
           <div class="original-price">
@@ -148,7 +150,7 @@
               ${{ formatMoney(item.original_price) }}
             </span>
           </div>
-          <div
+          <!-- <div
             class="home-price"
             v-if="
               (item.offer_status == '' || item.offer_status == 'Pending') &&
@@ -165,7 +167,7 @@
           </div>
           <div class="home-price" v-else-if="item.offer_status == 'Sold'">
             SALE
-          </div>
+          </div> -->
         </div>
         <div
           @click.stop="goPossessionPage(item.link)"
@@ -601,7 +603,11 @@ export default {
       );
     },
     is_conditional() {
-      return this.item.offer_status && this.item.offer_status === "Conditional";
+      return (
+        this.item.offer_status &&
+        (this.item.offer_status === "Conditional" ||
+          this.item.offer_status === "Pending")
+      );
     },
   },
   methods: {

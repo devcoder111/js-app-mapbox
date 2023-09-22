@@ -41,6 +41,7 @@ export default {
   },
   data() {
     return {
+      mapMoved: false,
       startingLoadData: false,
       map: {},
       communities: {},
@@ -168,9 +169,14 @@ export default {
   watch: {
     possessionFilters: {
       handler(val) {
-        console.log("community changed", val);
-        this.startingLoadData = false;
-        this.onRefresh();
+        console.log("mapcontainer-possessionfilter", this.possessionFilters);
+        if (this.mapMoved) {
+          // This is to distinguish between possessionFilters state changes in the mapcontainer and state changes in the Filtercontainer.
+          console.log("community changed", val);
+          this.startingLoadData = false;
+          this.onRefresh();
+          this.mapMoved = false;
+        }
       },
       deep: true,
     },
@@ -221,6 +227,7 @@ export default {
         // Get the visible markers based on the current map bounds
         var zoomLevel = this.map.getZoom();
         console.log("moveend-:", zoomLevel);
+        this.mapMoved = true;
         if (zoomLevel > 14) {
           this.startingLoadData = true;
           var visibleMarkers = this.filterMarkersByBounds();

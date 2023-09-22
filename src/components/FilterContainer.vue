@@ -41,7 +41,9 @@
             :max-tag-count="priceMaxTagCount"
             mode="multiple"
           >
-            <a-select-option value="0,350000"> $300K - $350K </a-select-option>
+            <a-select-option value="300000,350000">
+              $300K - $350K
+            </a-select-option>
             <a-select-option value="350000,400000">
               $350K - $400K
             </a-select-option>

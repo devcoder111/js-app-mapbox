@@ -50,7 +50,7 @@
           @change="quickFilter"
         >
           <div>
-            <a-checkbox style="width: 150px" value="0,350000"
+            <a-checkbox style="width: 150px" value="300000,350000"
               >$300K - $350K</a-checkbox
             >
           </div>
@@ -359,7 +359,7 @@ export default {
   methods: {
     closeQuickFilter() {
       console.log("closeQuickFilter", "");
-      this.isactiveFilterBtn = false;
+      if (this.isactiveFilterBtn == true) this.isactiveFilterBtn = false;
     },
     clearAllFilters() {
       bus.$emit("clearAllFilters");
