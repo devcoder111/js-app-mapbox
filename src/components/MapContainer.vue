@@ -41,7 +41,6 @@ export default {
   },
   data() {
     return {
-      mapMoved: false,
       startingLoadData: false,
       map: {},
       communities: {},
@@ -167,18 +166,12 @@ export default {
     },
   },
   watch: {
-    possessionFilters: {
-      handler(val) {
-        console.log("mapcontainer-possessionfilter", this.possessionFilters);
-        if (this.mapMoved) {
-          // This is to distinguish between possessionFilters state changes in the mapcontainer and state changes in the Filtercontainer.
-          console.log("community changed", val);
-          this.startingLoadData = false;
-          this.onRefresh();
-          this.mapMoved = false;
-        }
-      },
-      deep: true,
+    "possessionFilters.communities"(val) {
+      console.log("mapcontainer-possessionfilter", this.possessionFilters);
+      // This is to distinguish between possessionFilters state changes in the mapcontainer and state changes in the Filtercontainer.
+      console.log("community changed", val);
+      this.startingLoadData = false;
+      this.onRefresh();
     },
   },
   methods: {
@@ -227,7 +220,6 @@ export default {
         // Get the visible markers based on the current map bounds
         var zoomLevel = this.map.getZoom();
         console.log("moveend-:", zoomLevel);
-        this.mapMoved = true;
         if (zoomLevel > 14) {
           this.startingLoadData = true;
           var visibleMarkers = this.filterMarkersByBounds();
@@ -650,7 +642,7 @@ export default {
 }
 .mapboxgl-popup {
   max-width: 320px !important;
-  padding: 28px 0;
+  padding: 3px 0;
 }
 .community-marker:hover .community-marker-title {
   border: 2px solid #0075c9;

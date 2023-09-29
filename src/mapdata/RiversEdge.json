@@ -35,7 +35,7 @@
         "Block": 1,
         "Lot_Number": 31,
         "Area_ha_": 0.0322,
-        "jobfile": null
+        "jobfile": "10061"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -574,7 +574,7 @@
         "Block": 1,
         "Lot_Number": 32,
         "Area_ha_": 0.0319,
-        "jobfile": null
+        "jobfile": "10062"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -598,7 +598,7 @@
         "Block": 1,
         "Lot_Number": 33,
         "Area_ha_": 0.0318,
-        "jobfile": null
+        "jobfile": "10063"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -621,7 +621,7 @@
         "Block": 1,
         "Lot_Number": 34,
         "Area_ha_": 0.0325,
-        "jobfile": null
+        "jobfile": "10064"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -644,7 +644,7 @@
         "Block": 1,
         "Lot_Number": 35,
         "Area_ha_": 0.0388,
-        "jobfile": null
+        "jobfile": "10065"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -668,7 +668,7 @@
         "Block": 1,
         "Lot_Number": 36,
         "Area_ha_": 0.0393,
-        "jobfile": null
+        "jobfile": "10066"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -937,7 +937,7 @@
         "Block": 1,
         "Lot_Number": 29,
         "Area_ha_": 0.0324,
-        "jobfile": null
+        "jobfile": "10059"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -960,7 +960,7 @@
         "Block": 1,
         "Lot_Number": 30,
         "Area_ha_": 0.0322,
-        "jobfile": null
+        "jobfile": "10060"
       },
       "geometry": {
         "type": "MultiPolygon",
