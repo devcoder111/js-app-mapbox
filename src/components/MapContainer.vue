@@ -41,7 +41,6 @@ export default {
   },
   data() {
     return {
-      startingLoadData: false,
       map: {},
       communities: {},
       filteredItems: {},
@@ -65,7 +64,6 @@ export default {
       resizeInstance: null,
       filter: {},
       popupHome: {},
-      selectedCommunities: [],
       totalPolygons: {
         type: "FeatureCollection",
         name: "communityPolygons",
@@ -75,6 +73,7 @@ export default {
         },
         features: [],
       },
+      totalHomes: {},
     };
   },
   mounted() {
@@ -87,7 +86,16 @@ export default {
     var that = this;
     bus.$on("communities", async (communities) => {
       this.communities = communities;
-
+      await axios
+        .get("/wp-json/templatev2/v1/search", {
+          params: {},
+        })
+        .then((response) => {
+          this.totalHomes = response.data.items;
+          console.log("this.totalHomes", response);
+        });
+      console.log("totalHomes-", this.totalHomes);
+      var ss = [];
       for (const community of communities) {
         const pin = document.createElement("div");
 
@@ -117,36 +125,251 @@ export default {
         new mapboxgl.Marker(pin)
           .setLngLat([community.lng, community.lat])
           .addTo(this.map);
+        var communityShortName = community.name.replace(/\s/g, "");
+
+        if (community_underlay[communityShortName]) {
+          this.map.addSource("overlay" + communityShortName, {
+            type: "image",
+            url: require(`../community_underlay/images/${communityShortName}.png`),
+            coordinates: community_underlay[communityShortName].coordinates,
+          });
+          this.map.addLayer({
+            id: "overlay" + communityShortName,
+            type: "raster",
+            source: "overlay" + communityShortName,
+            paint: {
+              "raster-fade-duration": 0,
+            },
+          });
+        }
+        await import(`../mapdata/${communityShortName}.json`)
+          .then((polygons) => {
+            this.totalPolygons.features = this.totalPolygons.features.concat(
+              polygons.features
+            );
+          })
+          .catch((e) => {
+            console.log("no data", e);
+          });
       }
+      for (var i = 0; i < this.totalPolygons.features.length; i++) {
+        this.totalPolygons.features[i].properties.name =
+          "Lot #" +
+          (i + 1) +
+          "--" +
+          this.totalPolygons.features[i].properties.Lot_Number +
+          "--" +
+          this.totalPolygons.features[i].properties.jobfile;
+        var home = [];
+        if (
+          this.totalPolygons.features[i].properties.type &&
+          this.totalPolygons.features[i].properties.type == "showhome"
+        )
+          this.totalPolygons.features[i].properties.name = "Show Home";
+        else if (this.totalPolygons.features[i].properties.jobfile != null) {
+          home = filter(this.totalHomes, function (o) {
+            return (
+              o.job_file == that.totalPolygons.features[i].properties.jobfile
+            );
+          });
+          if (home.length == 1) {
+            this.totalPolygons.features[i].properties.name = home[0].title;
+            this.totalPolygons.features[i].properties.status =
+              home[0].offer_status;
+          } else {
+            if (this.totalPolygons.features[i].properties.status == "Sold") {
+              this.totalPolygons.features[i].properties.name = "Sold";
+            } else {
+              this.totalPolygons.features[i].properties.name = "Filtered Out";
+              this.totalPolygons.features[i].properties.status = "FilteredOut";
+              var removedSoldHomes = this.soldLots.filter(
+                (e) =>
+                  e.job_no == this.totalPolygons.features[i].properties.jobfile
+              ); //this is differet type sold homes(sold_lots post tye)
+              if (removedSoldHomes.length > 0) {
+                this.totalPolygons.features[i].properties.name = "Sold";
+                this.totalPolygons.features[i].properties.status = "Sold";
+              }
+            }
+          }
+          this.totalPolygons.features[i].properties.home = home[0];
+        } else {
+          this.totalPolygons.features[i].properties.name = "Not Available";
+          // polygons.features[i].properties.name = "Other Builder";
+        }
+        // polygons.features[i].properties.name =
+        //   home.length == 1 ? home[0].title : "Not Available";
+        // polygons.features[i].properties.status =
+        //   home.length == 1 ? home[0].offer_status : "unknown";
+      }
+      console.log("polygons-", this.totalPolygons, this.map);
+
+      // Add a data source containing GeoJSON data
+      this.map.addSource("sterling_edmonton", {
+        type: "geojson",
+        data: this.totalPolygons,
+        generateId: true,
+      });
+
+      var lot_color = "#0080ff";
+
+      // Add a layer to visualize the polygon
+      this.map.addLayer({
+        id: "sterling_edmonton",
+        type: "fill",
+        source: "sterling_edmonton",
+        layout: {},
+        paint: {
+          "fill-color": [
+            "case",
+            ["==", ["get", "type"], "showhome"],
+            "#30D5C8",
+            ["==", ["get", "jobfile"], null],
+            "grey",
+            ["==", ["get", "status"], "Available"],
+            "green",
+            ["==", ["get", "status"], "Conditional"],
+            "#ffba08",
+            ["==", ["get", "status"], "Pending"],
+            "#ffba08",
+            ["==", ["get", "status"], "FilteredOut"],
+            "blue",
+            ["==", ["get", "status"], "Sold"],
+            "red",
+            "#FC384A",
+          ],
+          "fill-opacity": 0.5,
+        },
+        minzoom: 13,
+      });
+
+      var _that = this;
+      const popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false,
+      });
+      var lotId = null;
+
+      this.map.on("mousemove", "sterling_edmonton", function (e) {
+        _that.map.getCanvas().style.cursor = "pointer";
+        if (lotId) {
+          _that.map.removeFeatureState(
+            {
+              source: "sterling_edmonton",
+              id: lotId,
+            },
+            {
+              hover: false,
+            }
+          );
+          if (_that.map.getLayer("polygon-border"))
+            _that.map.removeLayer("polygon-border");
+        }
+        lotId = e.features[0].id;
+        // set the hover attribute to true with feature state
+        _that.map.setFeatureState(
+          {
+            source: "sterling_edmonton",
+            id: lotId,
+          },
+          {
+            hover: true,
+          }
+        );
+        if (_that.map.getLayer("polygon-border")) {
+          _that.map.removeLayer("polygon-border");
+        }
+        // this.map.setFilter("sterling_edmonton", ["==", "jobfile", itemid]);
+
+        if (
+          _that.map.getSource("sterling_edmonton") &&
+          e.features[0].properties.jobfile
+        ) {
+          _that.map.addLayer({
+            id: "polygon-border",
+            type: "line",
+            source: "sterling_edmonton",
+            layout: {},
+            paint: {
+              "line-color": "white",
+              "line-opacity": [
+                "case",
+                ["==", ["get", "jobfile"], e.features[0].properties.jobfile],
+                1,
+                0,
+              ],
+              "line-width": 2,
+            },
+          });
+        }
+        // popup
+        //   .setLngLat(e.lngLat)
+        //   .setHTML(
+        //     `<div id="map-hover-popup-content">` +
+        //       e.features[0].properties.name +
+        //       `</div>`
+        //   )
+        //   .addTo(_that.map);
+        var selectedHome = e.features[0].properties.home
+          ? JSON.parse(e.features[0].properties.home)
+          : null;
+        var propertyName = e.features[0].properties.name;
+
+        console.log("lnglat", e.lngLat);
+        _that.openPopup(e.lngLat, selectedHome, e.features[0].properties);
+      });
+
+      this.map.on("mouseleave", "sterling_edmonton", () => {
+        if (lotId) {
+          _that.map.setFeatureState(
+            {
+              source: "sterling_edmonton",
+              id: lotId,
+            },
+            {
+              hover: false,
+            }
+          );
+        }
+        lotId = null;
+
+        // Reset the cursor style
+        _that.map.getCanvas().style.cursor = "";
+        popup.remove();
+      });
+
+      this.map.on("click", "sterling_edmonton", (e) => {
+        console.log("event-", e.features);
+        var selectedHome = e.features[0].properties.home
+          ? JSON.parse(e.features[0].properties.home)
+          : null;
+        var propertyName = e.features[0].properties.name;
+        if (e.features[0].properties.home) {
+          bus.$emit("scrollTo", selectedHome.id);
+        }
+        console.log("lnglat", e.lngLat);
+        this.openPopup(e.lngLat, selectedHome, e.features[0].properties);
+      });
     });
     bus.$on("homeItemhover", (itemid) => {
       console.log("homeItemhover-", itemid);
       if (this.map.getLayer("polygon-border")) {
-        this.map.setPaintProperty("polygon-border", "line-opacity", [
-          "case",
-          ["==", ["get", "jobfile"], itemid],
-          1,
-          0,
-        ]);
+        this.map.removeLayer("polygon-border");
       }
-      // if (this.map.getLayer("polygon-border")) {
-      //   this.map.removeLayer("polygon-border");
-      // }
       // this.map.setFilter("sterling_edmonton", ["==", "jobfile", itemid]);
-      // if (this.map.getSource("sterling_edmonton")) {
-      //   //
-      //   this.map.addLayer({
-      //     id: "polygon-border",
-      //     type: "line",
-      //     source: "sterling_edmonton",
-      //     layout: {},
-      //     paint: {
-      //       "line-color": "white",
-      //       "line-opacity": ["case", ["==", ["get", "jobfile"], itemid], 1, 0],
-      //       "line-width": 2,
-      //     },
-      //   });
-      // }
+      if (this.map.getSource("sterling_edmonton")) {
+        this.map.addLayer({
+          id: "polygon-border",
+          type: "line",
+          source: "sterling_edmonton",
+          layout: {},
+          paint: {
+            "line-color": "white",
+            "line-opacity": ["case", ["==", ["get", "jobfile"], itemid], 1, 0],
+            "line-width": 2,
+          },
+        });
+      }
     });
     bus.$on("openMarker", (item) => {
       console.log("markers", item);
@@ -166,22 +389,17 @@ export default {
     },
   },
   watch: {
-    "possessionFilters.communities"(val) {
-      console.log("mapcontainer-possessionfilter", this.possessionFilters);
-      // This is to distinguish between possessionFilters state changes in the mapcontainer and state changes in the Filtercontainer.
-      console.log("community changed", val);
-      this.startingLoadData = false;
-      this.onRefresh();
+    possessionFilters: {
+      handler(val) {
+        console.log("community changed", val);
+        this.onRefresh();
+      },
+      deep: true,
     },
   },
   methods: {
     backCommunities() {
       this.$store.state.filter.communities = [];
-      var mapCenter = [-113.59475, 53.534637];
-      this.map.flyTo({
-        center: mapCenter,
-        zoom: 9.5,
-      });
       // this.$router.push({});
       // this.$emit("onRefresh");
     },
@@ -198,14 +416,14 @@ export default {
     },
     setUpMap() {
       mapboxgl.accessToken = this.accessToken;
-
+      // var mapCenter = [-113.49848717382815, 53.54067477803275];
       var mapCenter = [-113.59475, 53.534637];
 
       this.map = new mapboxgl.Map({
         container: "mapContainer",
         style: "mapbox://styles/sterlinghomes/cliebkgik001z01r970icbhmf",
         center: mapCenter,
-        zoom: 9.5,
+        zoom: 9.6,
       });
       var that = this;
       that.map.resize();
@@ -218,314 +436,249 @@ export default {
       });
       this.map.on("moveend", () => {
         // Get the visible markers based on the current map bounds
-        var zoomLevel = this.map.getZoom();
-        console.log("moveend-:", zoomLevel);
-        if (zoomLevel > 14) {
-          this.startingLoadData = true;
-          var visibleMarkers = this.filterMarkersByBounds();
-          console.log("visibleMarkers-:", visibleMarkers);
-          if (
-            visibleMarkers.length > 0 &&
-            !this.selectedCommunities.includes(visibleMarkers[0].name)
-          ) {
-            console.log("selectedCommunities-:", this.selectedCommunities);
-            this.$store.state.filter.communities = [visibleMarkers[0].id];
-          }
-        } else {
-          if (this.startingLoadData) this.$store.state.filter.communities = [];
-          this.startingLoadData = false;
-          this.selectedCommunities = [];
-        }
+        // const visibleMarkers = filterMarkersByBounds();
+        // console.log("Visible markers:", visibleMarkers);
         // Do whatever you want with the visible markers data
       });
     },
-    filterMarkersByBounds() {
-      const bounds = this.map.getBounds();
-      const visibleMarkers = this.communities.filter((community) => {
-        return (
-          community.lng >= bounds.getWest() &&
-          community.lng <= bounds.getEast() &&
-          community.lat >= bounds.getSouth() &&
-          community.lat <= bounds.getNorth()
-        );
-      });
-      return visibleMarkers;
-    },
-    removePolygonsAndUnderlay() {
-      if (this.map.getSource("sterling_edmonton")) {
-        this.map.removeLayer("sterling_edmonton");
-        if (this.map.getLayer("polygon-border"))
-          this.map.removeLayer("polygon-border");
-        if (this.map.getLayer("extra-point"))
-          this.map.removeLayer("extra-point");
-        this.map.removeSource("sterling_edmonton");
-      }
-      if (this.map.getSource("overlay")) {
-        this.map.removeLayer("overlay");
-        this.map.removeSource("overlay");
-      }
-    },
     selectCommunity(community) {
-      if (!this.selectedCommunities.includes(community.name))
-        this.selectedCommunities.push(community.name);
-      console.log("selectCommunity--", this.selectedCommunities);
       var communityShortName = community.name.replace(/\s/g, "");
       console.log("filtereditem--", this.filteredItems);
-      if (this.map.getSource("sterling_edmonton")) {
-        this.map.removeLayer("sterling_edmonton");
-        if (this.map.getLayer("polygon-border"))
-          this.map.removeLayer("polygon-border");
-        if (this.map.getLayer("extra-point"))
-          this.map.removeLayer("extra-point");
-        this.map.removeSource("sterling_edmonton");
-      }
-      if (this.map.getSource("overlay")) {
-        this.map.removeLayer("overlay");
-        this.map.removeSource("overlay");
-      }
-      if (community_underlay[communityShortName]) {
-        this.map.addSource("overlay", {
-          type: "image",
-          url: require(`../community_underlay/images/${communityShortName}.png`),
-          coordinates: community_underlay[communityShortName].coordinates,
-        });
-        this.map.addLayer({
-          id: "overlay",
-          type: "raster",
-          source: "overlay",
-          paint: {
-            "raster-fade-duration": 0,
-          },
-        });
-      }
-      import(`../mapdata/${communityShortName}.json`).then((polygons) => {
-        console.log("polygons-", polygons.features[0].id);
-        for (var i = 0; i < polygons.features.length; i++) {
-          polygons.features[i].properties.lotId = polygons.features[i].id;
-          polygons.features[i].properties.name =
-            "Lot #" +
-            (i + 1) +
-            "--" +
-            polygons.features[i].properties.Lot_Number +
-            "--" +
-            polygons.features[i].properties.jobfile;
-          var home = [];
-          if (
-            polygons.features[i].properties.type &&
-            polygons.features[i].properties.type == "showhome"
-          )
-            polygons.features[i].properties.name = "Show Home";
-          else if (polygons.features[i].properties.jobfile != null) {
-            home = filter(this.filteredItems, function (o) {
-              return o.job_file == polygons.features[i].properties.jobfile;
-            });
-            if (home.length == 1) {
-              polygons.features[i].properties.name = home[0].title;
-              polygons.features[i].properties.status = home[0].offer_status;
-            } else {
-              if (polygons.features[i].properties.status == "Sold") {
-                polygons.features[i].properties.name = "Sold";
-              } else {
-                polygons.features[i].properties.name = "Filtered Out";
-                polygons.features[i].properties.status = "FilteredOut";
-                var removedSoldHomes = this.soldLots.filter(
-                  (e) => e.job_no == polygons.features[i].properties.jobfile
-                ); //this is differet type sold homes(sold_lots post tye)
-                if (removedSoldHomes.length > 0) {
-                  polygons.features[i].properties.name = "Sold";
-                  polygons.features[i].properties.status = "Sold";
-                }
-              }
-            }
-            polygons.features[i].properties.home = home[0];
-          } else {
-            polygons.features[i].properties.name = "Not Available";
-            if (polygons.features[i].properties.additionalType) {
-              polygons.features[i].properties.name =
-                polygons.features[i].properties.title;
-            }
-            // polygons.features[i].properties.name = "Other Builder";
-          }
-          // polygons.features[i].properties.name =
-          //   home.length == 1 ? home[0].title : "Not Available";
-          // polygons.features[i].properties.status =
-          //   home.length == 1 ? home[0].offer_status : "unknown";
-        }
-        console.log("polygons-", polygons);
+      // if (this.map.getSource("sterling_edmonton")) {
+      //   // this.map.removeLayer("sterling_edmonton");
+      //   if (this.map.getLayer("polygon-border"))
+      //     this.map.removeLayer("polygon-border");
+      //   // this.map.removeSource("sterling_edmonton");
+      // }
+      // if (this.map.getSource("overlay")) {
+      //   this.map.removeLayer("overlay");
+      //   this.map.removeSource("overlay");
+      // }
+      // import(`../mapdata/${communityShortName}.json`).then((polygons) => {
+      //   for (var i = 0; i < polygons.features.length; i++) {
+      //     polygons.features[i].properties.name =
+      //       "Lot #" +
+      //       (i + 1) +
+      //       "--" +
+      //       polygons.features[i].properties.Lot_Number +
+      //       "--" +
+      //       polygons.features[i].properties.jobfile;
+      //     var home = [];
+      //     if (
+      //       polygons.features[i].properties.type &&
+      //       polygons.features[i].properties.type == "showhome"
+      //     )
+      //       polygons.features[i].properties.name = "Show Home";
+      //     else if (polygons.features[i].properties.jobfile != null) {
+      //       home = filter(this.filteredItems, function (o) {
+      //         return o.job_file == polygons.features[i].properties.jobfile;
+      //       });
+      //       if (home.length == 1) {
+      //         polygons.features[i].properties.name = home[0].title;
+      //         polygons.features[i].properties.status = home[0].offer_status;
+      //       } else {
+      //         if (polygons.features[i].properties.status == "Sold") {
+      //           polygons.features[i].properties.name = "Sold";
+      //         } else {
+      //           polygons.features[i].properties.name = "Filtered Out";
+      //           polygons.features[i].properties.status = "FilteredOut";
+      //         }
+      //       }
+      //       polygons.features[i].properties.home = home[0];
+      //     } else {
+      //       polygons.features[i].properties.name = "Not Available";
+      //       // polygons.features[i].properties.name = "Other Builder";
+      //     }
+      //     // polygons.features[i].properties.name =
+      //     //   home.length == 1 ? home[0].title : "Not Available";
+      //     // polygons.features[i].properties.status =
+      //     //   home.length == 1 ? home[0].offer_status : "unknown";
+      //   }
+      //   console.log("polygons-", polygons);
+      //   if (community_underlay[communityShortName]) {
+      //     this.map.addSource("overlay", {
+      //       type: "image",
+      //       url: require(`../community_underlay/images/${communityShortName}.png`),
+      //       coordinates: community_underlay[communityShortName].coordinates,
+      //     });
+      //     this.map.addLayer({
+      //       id: "overlay",
+      //       type: "raster",
+      //       source: "overlay",
+      //       paint: {
+      //         "raster-fade-duration": 0,
+      //       },
+      //     });
+      //   }
+      //   // Add a data source containing GeoJSON data
+      //   this.map.addSource("sterling_edmonton", {
+      //     type: "geojson",
+      //     data: polygons,
+      //     generateId: true,
+      //   });
 
-        // Add a data source containing GeoJSON data
-        this.map.addSource("sterling_edmonton", {
-          type: "geojson",
-          data: polygons,
-          generateId: true,
-        });
+      //   var lot_color = "#0080ff";
 
-        var lot_color = "#0080ff";
+      //   // Add a layer to visualize the polygon
+      //   this.map.addLayer({
+      //     id: "sterling_edmonton",
+      //     type: "fill",
+      //     source: "sterling_edmonton",
+      //     layout: {},
+      //     paint: {
+      //       "fill-color": [
+      //         "case",
+      //         ["==", ["get", "type"], "showhome"],
+      //         "#30D5C8",
+      //         ["==", ["get", "jobfile"], null],
+      //         "grey",
+      //         ["==", ["get", "status"], "Available"],
+      //         "green",
+      //         ["==", ["get", "status"], "Conditional"],
+      //         "#ffba08",
+      //         ["==", ["get", "status"], "Pending"],
+      //         "#ffba08",
+      //         ["==", ["get", "status"], "FilteredOut"],
+      //         "blue",
+      //         ["==", ["get", "status"], "Sold"],
+      //         "red",
+      //         "#FC384A",
+      //       ],
+      //       "fill-opacity": 0.5,
+      //     },
+      //   });
 
-        // Add a layer to visualize the polygon
-        this.map.addLayer({
-          id: "sterling_edmonton",
-          type: "fill",
-          source: "sterling_edmonton",
-          layout: {},
-          paint: {
-            "fill-color": [
-              "case",
-              ["==", ["get", "type"], "showhome"],
-              "#30D5C8",
-              ["==", ["get", "jobfile"], null],
-              "grey",
-              ["==", ["get", "status"], "Available"],
-              "green",
-              ["==", ["get", "status"], "Conditional"],
-              "#ffba08",
-              ["==", ["get", "status"], "Pending"],
-              "#ffba08",
-              ["==", ["get", "status"], "FilteredOut"],
-              "blue",
-              ["==", ["get", "status"], "Sold"],
-              "red",
-              "#FC384A",
-            ],
-            "fill-opacity": 0.5,
-          },
-        });
-        this.map.addLayer({
-          id: "polygon-border",
-          type: "line",
-          source: "sterling_edmonton",
-          layout: {
-            "line-join": "round",
-            "line-cap": "round",
-          },
-          paint: {
-            "line-color": "white",
-            "line-opacity": [
-              "case",
-              ["boolean", ["feature-state", "hover"], false],
-              1,
-              0,
-            ],
-            "line-width": 2,
-          },
-        });
+      //   var _that = this;
+      //   const popup = new mapboxgl.Popup({
+      //     closeButton: false,
+      //     closeOnClick: false,
+      //   });
+      //   var lotId = null;
 
-        this.map.addLayer({
-          id: "extra-point",
-          type: "circle",
-          source: "sterling_edmonton",
-          paint: {
-            "circle-color": "#4264fb",
-            "circle-radius": 6,
-            "circle-stroke-width": 2,
-            "circle-stroke-color": "#ffffff",
-          },
-          filter: ["==", "$type", "Point"],
-        });
-        var _that = this;
-        const popup = new mapboxgl.Popup({
-          closeButton: false,
-          closeOnClick: false,
-        });
+      //   this.map.on("mousemove", "sterling_edmonton", function (e) {
+      //     _that.map.getCanvas().style.cursor = "pointer";
+      //     if (lotId) {
+      //       _that.map.removeFeatureState(
+      //         {
+      //           source: "sterling_edmonton",
+      //           id: lotId,
+      //         },
+      //         {
+      //           hover: false,
+      //         }
+      //       );
+      //       if (_that.map.getLayer("polygon-border"))
+      //         _that.map.removeLayer("polygon-border");
+      //     }
+      //     lotId = e.features[0].id;
+      //     // set the hover attribute to true with feature state
+      //     _that.map.setFeatureState(
+      //       {
+      //         source: "sterling_edmonton",
+      //         id: lotId,
+      //       },
+      //       {
+      //         hover: true,
+      //       }
+      //     );
+      //     if (_that.map.getLayer("polygon-border")) {
+      //       _that.map.removeLayer("polygon-border");
+      //     }
+      //     // this.map.setFilter("sterling_edmonton", ["==", "jobfile", itemid]);
 
-        var lotId = null;
+      //     if (
+      //       _that.map.getSource("sterling_edmonton") &&
+      //       e.features[0].properties.jobfile
+      //     ) {
+      //       _that.map.addLayer({
+      //         id: "polygon-border",
+      //         type: "line",
+      //         source: "sterling_edmonton",
+      //         layout: {},
+      //         paint: {
+      //           "line-color": "white",
+      //           "line-opacity": [
+      //             "case",
+      //             ["==", ["get", "jobfile"], e.features[0].properties.jobfile],
+      //             1,
+      //             0,
+      //           ],
+      //           "line-width": 2,
+      //         },
+      //       });
+      //     }
+      //     popup
+      //       .setLngLat(e.lngLat)
+      //       .setHTML(
+      //         `<div id="map-hover-popup-content">` +
+      //           e.features[0].properties.name +
+      //           `</div>`
+      //       )
+      //       .addTo(_that.map);
+      //   });
 
-        this.map.on("mousemove", "sterling_edmonton", function (e) {
-          _that.map.getCanvas().style.cursor = "pointer";
-          const feature = e.features[0];
+      //   this.map.on("mouseleave", "sterling_edmonton", () => {
+      //     if (lotId) {
+      //       _that.map.setFeatureState(
+      //         {
+      //           source: "sterling_edmonton",
+      //           id: lotId,
+      //         },
+      //         {
+      //           hover: false,
+      //         }
+      //       );
+      //     }
+      //     lotId = null;
 
-          if (e.features.length > 0) {
-            if (lotId !== null) {
-              _that.map.setFeatureState(
-                { source: "sterling_edmonton", id: lotId },
-                { hover: false }
-              );
-            }
-            lotId = e.features[0].id;
-            _that.map.setFeatureState(
-              { source: "sterling_edmonton", id: lotId },
-              { hover: true }
-            );
-          }
-          _that.map.setPaintProperty("polygon-border", "line-opacity", [
-            "case",
-            ["boolean", ["feature-state", "hover"], false],
-            1,
-            0,
-          ]);
-          var selectedHome = e.features[0].properties.home
-            ? JSON.parse(e.features[0].properties.home)
-            : null;
-          var properties = e.features[0].properties;
+      //     // Reset the cursor style
+      //     _that.map.getCanvas().style.cursor = "";
+      //     popup.remove();
+      //   });
 
-          _that.openPopup(e.lngLat, selectedHome, properties);
-        });
+      //   this.map.on("click", "sterling_edmonton", (e) => {
+      //     console.log("event-", e.features);
+      //     var selectedHome = e.features[0].properties.home
+      //       ? JSON.parse(e.features[0].properties.home)
+      //       : null;
+      //     var propertyName = e.features[0].properties.name;
+      //     if (e.features[0].properties.home) {
+      //       bus.$emit("scrollTo", selectedHome.id);
+      //     }
+      //     console.log("lnglat", e.lngLat);
 
-        this.map.on("mouseleave", "sterling_edmonton", () => {
-          if (lotId) {
-            _that.map.setFeatureState(
-              {
-                source: "sterling_edmonton",
-                id: lotId,
-              },
-              {
-                hover: false,
-              }
-            );
-          }
-          lotId = null;
+      //     this.openPopup(e.lngLat, selectedHome, propertyName);
+      //     // var popupHome = new mapboxgl.Popup({
+      //     //   closeButton: false,
+      //     // });
+      //     // popupHome
+      //     //   .setLngLat(e.lngLat)
+      //     //   .setHTML('<div id="map-popup-content">Hello</div>')
+      //     //   .addTo(_that.map)
+      //     //   .on("close", function (e) {
+      //     //     console.log("close popup", e);
+      //     //   });
 
-          // Reset the cursor style
-          _that.map.getCanvas().style.cursor = "";
-          popup.remove();
-        });
+      //     // nextTick(() => {
+      //     //   console.log("nextClick");
+      //     //   new Vue({
+      //     //     el: "#map-popup-content",
+      //     //     render: (h) =>
+      //     //       h(MapPopup, {
+      //     //         props: {
+      //     //           home: selectedHome,
+      //     //           propertyName,
+      //     //         },
+      //     //       }),
+      //     //   });
+      //     // });
+      //   });
 
-        this.map.on("click", "sterling_edmonton", (e) => {
-          console.log("event-", e.features);
-          var selectedHome = e.features[0].properties.home
-            ? JSON.parse(e.features[0].properties.home)
-            : null;
-          var properties = e.features[0].properties;
-          if (e.features[0].properties.home) {
-            bus.$emit("scrollTo", selectedHome.id);
-          }
-
-          this.openPopup(e.lngLat, selectedHome, properties);
-        });
-
-        //extra points layer
-        this.map.on("mouseenter", "extra-point", (e) => {
-          // Change the cursor style as a UI indicator.
-          _that.map.getCanvas().style.cursor = "pointer";
-
-          // Copy coordinates array.
-          const coordinates = e.features[0].geometry.coordinates.slice();
-          var properties = e.features[0].properties;
-
-          // Ensure that if the map is zoomed out such that multiple
-          // copies of the feature are visible, the popup appears
-          // over the copy being pointed to.
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-          }
-
-          var selectedHome = e.features[0].properties.home
-            ? JSON.parse(e.features[0].properties.home)
-            : null;
-          this.openPopup(coordinates, selectedHome, properties);
-        });
-
-        this.map.on("mouseleave", "extra-point", () => {
-          _that.map.getCanvas().style.cursor = "";
-          popup.remove();
-        });
+      // });
+      this.map.flyTo({
+        center: [community.lng, community.lat],
+        zoom: 15,
       });
-      // when zoom out, don't fly
-      if (!this.startingLoadData)
-        this.map.flyTo({
-          center: [community.lng, community.lat],
-          zoom: 15,
-        });
     },
     openPopup(lngLat, selectedHome, properties) {
       this.popupHome
@@ -550,7 +703,6 @@ export default {
     refresh(items, soldLots) {
       console.log(
         "mapcontainer refresh-",
-        items,
         this.possessionFilters,
         this.communities
       );
@@ -571,23 +723,12 @@ export default {
         this.selectCommunity(community);
       }
       if (this.possessionFilters.communities.length != 1) {
-        if (this.map.getSource("sterling_edmonton")) {
-          this.map.removeLayer("sterling_edmonton");
-          if (this.map.getLayer("polygon-border"))
-            this.map.removeLayer("polygon-border");
-          if (this.map.getLayer("extra-point"))
-            this.map.removeLayer("extra-point");
-          this.map.removeSource("sterling_edmonton");
-        }
-        if (this.map.getSource("overlay")) {
-          this.map.removeLayer("overlay");
-          this.map.removeSource("overlay");
-        }
+        // this.map.removeSource("sterling_edmonton");
         var mapCenter = [-113.49848717382815, 53.54067477803275];
-        // this.map.flyTo({
-        //   center: mapCenter,
-        //   zoom: 9.6,
-        // });
+        this.map.flyTo({
+          center: mapCenter,
+          zoom: 9.6,
+        });
         // if (this.map.getSource("sterling_edmonton")) {
         //   this.map.removeLayer("sterling_edmonton");
         //   if (this.map.getLayer("polygon-border"))
@@ -642,7 +783,6 @@ export default {
 }
 .mapboxgl-popup {
   max-width: 320px !important;
-  padding: 3px 0;
 }
 .community-marker:hover .community-marker-title {
   border: 2px solid #0075c9;
