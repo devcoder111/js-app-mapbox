@@ -8,7 +8,7 @@
   "features": [
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10182" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -44,7 +44,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10186" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -62,7 +62,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10188" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -98,7 +98,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10192" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -116,7 +116,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10194" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -134,7 +134,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10196" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -152,7 +152,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10198" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -170,7 +170,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10200" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -262,7 +262,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10199" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -280,7 +280,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10197" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -298,7 +298,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10195" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -334,7 +334,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10191" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -352,7 +352,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10189" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -370,7 +370,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10187" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -388,7 +388,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10185" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -406,7 +406,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10183" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1438,7 +1438,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10137" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1605,7 +1605,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10143" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1708,7 +1708,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10147" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1780,7 +1780,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10151" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1943,7 +1943,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10211" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1985,283 +1985,7 @@
         ]
       }
     },
-    {
-      "type": "Feature",
-      "properties": {
-        "Lot_Number": null,
-        "jobfile": null,
-        "additionalType": "polygon",
-        "title": "PHASE 2 RELEASE",
-        "subtitle": "Availability TBD",
-        "description": ""
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-113.411686809764, 53.372975, 0.0],
-              [-113.411128809764, 53.372975, 0.0],
-              [-113.411128809764, 53.37212, 0.0],
-              [-113.411686809764, 53.37212, 0.0],
-              [-113.411686809764, 53.372975, 0.0]
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "Lot_Number": null,
-        "jobfile": null,
-        "additionalType": "polygon",
-        "title": "PHASE 1 RELEASE",
-        "subtitle": "Rear Laned Homes",
-        "description": "Zero Lot Line"
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-113.411686809764, 53.37212, 0.0],
-              [-113.411128809764, 53.37212, 0.0],
-              [-113.411128809764, 53.371575, 0.0],
-              [-113.411686809764, 53.371575, 0.0],
-              [-113.411686809764, 53.37212, 0.0]
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "Lot_Number": null,
-        "jobfile": null,
-        "additionalType": "polygon",
-        "title": "SHOW HOMES",
-        "subtitle": "",
-        "description": ""
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-113.411686809764, 53.371575, 0.0],
-              [-113.411128809764, 53.371575, 0.0],
-              [-113.411128809764, 53.371178, 0.0],
-              [-113.411686809764, 53.371288, 0.0],
-              [-113.411686809764, 53.371575, 0.0]
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "Lot_Number": null,
-        "jobfile": null,
-        "additionalType": "polygon",
-        "title": "SHOW HOMES",
-        "subtitle": "",
-        "description": ""
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-113.411686809764, 53.371148, 0.0],
-              [-113.411031809764, 53.371042, 0.0],
-              [-113.411184809764, 53.370688, 0.0],
-              [-113.411813809764, 53.370788, 0.0],
-              [-113.411686809764, 53.371148, 0.0]
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "Lot_Number": null,
-        "jobfile": null,
-        "additionalType": "polygon",
-        "title": "PHASE 1 RELEASE",
-        "subtitle": "Front Attached",
-        "description": "Regular Lots"
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-113.411031809764, 53.371042, 0.0],
-              [-113.410448809764, 53.370957, 0.0],
-              [-113.410477809764, 53.370604, 0.0],
-              [-113.411184809764, 53.370688, 0.0],
-              [-113.411031809764, 53.371042, 0.0]
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "Lot_Number": null,
-        "jobfile": null,
-        "additionalType": "polygon",
-        "title": "PHASE 2 RELEASE",
-        "subtitle": "Availability TBD",
-        "description": ""
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-113.412533809764, 53.371306, 0.0],
-              [-113.412003809764, 53.371204, 0.0],
-              [-113.412081809764, 53.370853, 0.0],
-              [-113.412719809764, 53.370971, 0.0],
-              [-113.412533809764, 53.371306, 0.0]
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "Lot_Number": null,
-        "jobfile": null,
-        "additionalType": "polygon",
-        "title": "PHASE 3 RELEASE",
-        "subtitle": "Availability TBD",
-        "description": ""
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-113.414016809764, 53.372847, 0.0],
-              [-113.413683809764, 53.372971, 0.0],
-              [-113.412008809764, 53.372971, 0.0],
-              [-113.412008809764, 53.372622, 0.0],
-              [-113.413395809764, 53.372625, 0.0],
-              [-113.413423809764, 53.372567, 0.0],
-              [-113.414016809764, 53.372847, 0.0]
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "Lot_Number": null,
-        "jobfile": null,
-        "additionalType": "polygon",
-        "title": "PHASE 2 RELEASE",
-        "subtitle": "Availability TBD",
-        "description": ""
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-113.412590809764, 53.372491, 0.0],
-              [-113.412008809764, 53.372491, 0.0],
-              [-113.412008809764, 53.372132, 0.0],
-              [-113.412590809764, 53.372132, 0.0],
-              [-113.412590809764, 53.372491, 0.0]
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "Lot_Number": null,
-        "jobfile": null,
-        "additionalType": "polygon",
-        "title": "PHASE 3 RELEASE",
-        "subtitle": "Availability TBD",
-        "description": ""
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-113.413184809764, 53.372491, 0.0],
-              [-113.412590809764, 53.372491, 0.0],
-              [-113.412590809764, 53.372132, 0.0],
-              [-113.412008809764, 53.372132, 0.0],
-              [-113.412008809764, 53.371355, 0.0],
-              [-113.413184809764, 53.371555, 0.0],
-              [-113.413184809764, 53.372491, 0.0]
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "Lot_Number": null,
-        "additionalType": "point",
-        "title": "PHASE 1 RELEASE",
-        "subtitle": "Presale Ammenity Lots",
-        "description": "Regular Lots"
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-113.414016809764, 53.372847],
-              [-113.413423809764, 53.372567],
-              [-113.413423809764, 53.371467],
-              [-113.414016809764, 53.37109],
-              [-113.414016809764, 53.372847]
-            ]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "Lot_Number": null,
-        "additionalType": "point",
-        "title": "PHASE 1 RELEASE",
-        "subtitle": "Front Attached",
-        "description": "Regular & Zero Lot Line"
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [-113.413423809764, 53.371467],
-              [-113.412533809764, 53.371306],
-              [-113.412719809764, 53.370971],
-              [-113.414016809764, 53.37109],
-              [-113.413423809764, 53.371467]
-            ]
-          ]
-        ]
-      }
-    },
+
     {
       "type": "Feature",
       "properties": {

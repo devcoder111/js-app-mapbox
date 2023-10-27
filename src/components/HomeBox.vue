@@ -52,9 +52,9 @@
         </svg>
       </a-button>
 
-      <div class="sale-ribbon" v-if="item.promotion_checkbox === true">
+      <!-- <div class="sale-ribbon" v-if="item.promotion_checkbox === true">
         <img src="../assets/sale_badge.png" />
-      </div>
+      </div> -->
       <div
         class="corner-ribbon top-left sticky red shadow"
         v-if="is_sold && is_conditional === false"

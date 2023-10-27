@@ -5,18 +5,18 @@
     </div>
     <div class="filter-container-content">
       <a-select
-        v-model="filter.communities"
         placeholder="Communities"
         style="width: 100%"
         mode="multiple"
         @change="onChange"
         :max-tag-count="communityMaxTagCount"
+        v-model="filter_communities"
       >
         <a-select-opt-group v-for="area in areas" :key="area.name">
           <a-select-option
             v-for="community in area.communities"
             :key="community.id"
-            :value="String(community.id)"
+            :value="community.name"
             @change="
               setActive({
                 key: 'communities',
@@ -68,6 +68,10 @@
         <div class="show-promotion-switch">
           <label>Show only promotions:</label>
           <a-switch v-model="filter.is_promotion" />
+        </div>
+        <div class="built-green-switch">
+          <label>Built Green:</label>
+          <a-switch v-model="filter.is_builtgreen" />
         </div>
       </div>
       <div class="possession-date-home-type">
@@ -186,15 +190,16 @@
             <a-row :gutter="16">
               <a-col :span="12">
                 <a-select
-                  v-model="filter.model_ids"
                   style="width: 100%"
+                  v-model="filter_modelids"
                   placeholder="Home Model Name"
                   mode="multiple"
+                  @change="changeHomeModel"
                 >
                   <a-select-option
                     v-for="model of models"
                     :key="model.id"
-                    :value="model.id"
+                    :value="model.title"
                     >{{ model.title }}</a-select-option
                   >
                 </a-select>
@@ -378,10 +383,11 @@
           </a-col>
           <a-col :span="12">
             <a-select
-              v-model="filter.model_ids"
               style="width: 100%"
+              v-model="filter_modelids"
               placeholder="Home Model Name"
               mode="multiple"
+              @change="changeHomeModel"
             >
               <a-select-option
                 v-for="model of models"
@@ -1363,6 +1369,7 @@ export default {
         colourboard: "",
         is_price_reduced: false,
         is_promotion: false,
+        is_builtgreen: false,
         is_guaranted: 0,
         isFourPlusBeds: false,
         isUnder400: false,
@@ -1381,6 +1388,8 @@ export default {
       garage_information_visible: true,
       lot_features_visible: true,
       lot_direction_visible: true,
+      filter_modelids: [],
+      filter_communities: [],
     };
   },
   watch: {
@@ -1431,6 +1440,7 @@ export default {
               colourboard: this.filter.colourboard,
               is_price_reduced: this.filter.is_price_reduced,
               is_promotion: this.filter.is_promotion,
+              is_builtgreen: this.filter.is_builtgreen,
               is_guaranted: this.filter.is_guaranted,
             }),
           });
@@ -1446,7 +1456,12 @@ export default {
     axios
       .get("/wp-json/templatev2/v1/communities")
       .then((response) => {
-        $this.communities = response.data;
+        console.log("this-", this);
+        if ($this.$route.name == "show-homes")
+          $this.communities = response.data.filter((obj) => {
+            return obj.have_showhomes == true;
+          });
+        else $this.communities = response.data;
         console.log("$this.communities", $this.communities);
         bus.$emit("communities", $this.communities);
         response.data.forEach((community) => {
@@ -1463,7 +1478,6 @@ export default {
   },
   created() {
     // this.tabs = await new appConnections().data;
-
     bus.$on("selectCommunity", (item) => {
       console.log("selectCommunity", item);
       this.filter.communities = [];
@@ -1577,6 +1591,7 @@ export default {
         query.hasOwnProperty("walkout_lot") &&
         query.hasOwnProperty("colourboard") &&
         query.hasOwnProperty("is_promotion") &&
+        query.hasOwnProperty("is_builtgreen") &&
         query.hasOwnProperty("is_guaranted") &&
         query.hasOwnProperty("is_price_reduced")
       ) {
@@ -1650,6 +1665,8 @@ export default {
               : "",
           is_promotion:
             query.is_promotion != null ? query.is_promotion == "true" : "",
+          is_builtgreen:
+            query.is_builtgreen != null ? query.is_builtgreen == "true" : "",
           is_guaranted: query.is_guaranted != null ? query.is_guaranted : "",
         };
 
@@ -1670,6 +1687,26 @@ export default {
         filters = storejs.get(this.$route.name + "_filter");
         console.log("no fileters", filters);
       }
+      console.log("fileters--", filters);
+      // this is for converting from model's id array to model's title array
+      if (filters != undefined) {
+        this.filter_modelids = filters.model_ids
+          .map((id) => {
+            var model = $this.models.find((m) => m.id === id);
+            return model ? model.title : null;
+          })
+          .filter((id) => id !== null);
+        this.filter_communities = filters.communities
+          .map((id) => {
+            var community = $this.communities.find((c) => c.id == id);
+            return community ? community.name : null;
+          })
+          .filter((id) => id !== null);
+      } else {
+        this.filter_modelids = [];
+        this.filter_communities = [];
+      }
+
       this.$store
         .dispatch("loadFilter", filters != null ? filters : this.filter)
         .then(() => {
@@ -1716,11 +1753,18 @@ export default {
                 value: "price_reduced",
               });
             }
-            if (key == "is_promotion" && value == true) {
+            if (key == "is_price_reduced" && value == true) {
               that.filtersApplied.push({
                 key: key,
-                name: "Promotion",
-                value: "promotion",
+                name: "Price Reduced",
+                value: "price_reduced",
+              });
+            }
+            if (key == "is_builtgreen" && value == true) {
+              that.filtersApplied.push({
+                key: key,
+                name: "Built Green",
+                value: "built_green",
               });
             } else if (
               typeof value == "string" &&
@@ -1759,6 +1803,7 @@ export default {
         $this.filter.walkout_lot = [];
         $this.filter.colourboard = "";
         $this.filter.is_promotion = false;
+        $this.filter.is_builtgreen = false;
         $this.filter.is_guaranted = 0;
         $this.filter.is_price_reduced = false;
         $this.$store.dispatch("saveFilter", {
@@ -1822,6 +1867,7 @@ export default {
       this.filter.walkout_lot = [];
       this.filter.colourboard = "";
       this.filter.is_promotion = false;
+      this.filter.is_builtgreen = false;
       this.filter.is_guaranted = 0;
       this.filter.is_price_reduced = false;
       this.filtersApplied = [];
@@ -1854,26 +1900,47 @@ export default {
         value: area.name,
       });
     },
+    changeHomeModel(checkedValues) {
+      let $this = this;
+      console.log("changeHomeModel", checkedValues);
+      var ids = checkedValues
+        .map((title) => {
+          var model = $this.models.find((m) => m.title === title);
+          return model ? model.id : null;
+        })
+        .filter((id) => id !== null);
+      console.log("changeHomeModel--", ids);
+      $this.filter.model_ids = ids;
+    },
     onChange(checkedValues) {
       let $this = this;
-      Object.values(this.areas).forEach((area) => {
-        let communityIds = Object.keys(area.communities).map((key) => {
-          return parseInt(key);
-        });
-        let isAreaSelected =
-          intersection(checkedValues, communityIds).length ===
-          communityIds.length;
-        let selectedAreaIndex = checkedValues.indexOf(area.id);
-        if (isAreaSelected) {
-          if (selectedAreaIndex === -1) {
-            $this.filter.communities.push(area.id);
-          }
-        } else {
-          if (selectedAreaIndex > -1) {
-            $this.filter.communities.splice(selectedAreaIndex, 1);
-          }
-        }
-      });
+      console.log("onchange", checkedValues);
+      var ids = checkedValues
+        .map((name) => {
+          var community = $this.communities.find((c) => c.name === name);
+          return community ? community.id : null;
+        })
+        .filter((id) => id !== null);
+      console.log("onchange--", ids);
+      $this.filter.communities = ids;
+      // Object.values(this.areas).forEach((area) => {
+      //   let communityIds = Object.keys(area.communities).map((key) => {
+      //     return parseInt(key);
+      //   });
+      //   let isAreaSelected =
+      //     intersection(checkedValues, communityIds).length ===
+      //     communityIds.length;
+      //   let selectedAreaIndex = checkedValues.indexOf(area.id);
+      //   if (isAreaSelected) {
+      //     if (selectedAreaIndex === -1) {
+      //       $this.filter.communities.push(area.id);
+      //     }
+      //   } else {
+      //     if (selectedAreaIndex > -1) {
+      //       $this.filter.communities.splice(selectedAreaIndex, 1);
+      //     }
+      //   }
+      // });
     },
     closeFilters() {
       $(".filter-container").removeClass("mobile-filter-container");
@@ -2078,6 +2145,9 @@ input {
 .features-wrapper {
   padding: 0px 0;
   display: flex;
+}
+.built-green-switch {
+  margin-left: 15px;
 }
 @media all and (max-width: 700px) {
   .price-filter-wrapper {

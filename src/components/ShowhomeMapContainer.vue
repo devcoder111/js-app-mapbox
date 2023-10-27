@@ -310,12 +310,7 @@ export default {
             "--" +
             polygons.features[i].properties.jobfile;
           var home = [];
-          if (
-            polygons.features[i].properties.type &&
-            polygons.features[i].properties.type == "showhome"
-          )
-            polygons.features[i].properties.name = "Show Home";
-          else if (polygons.features[i].properties.jobfile != null) {
+          if (polygons.features[i].properties.jobfile != null) {
             home = filter(this.filteredItems, function (o) {
               return o.job_file == polygons.features[i].properties.jobfile;
             });
@@ -326,18 +321,23 @@ export default {
               if (polygons.features[i].properties.status == "Sold") {
                 polygons.features[i].properties.name = "Sold";
               } else {
-                polygons.features[i].properties.name = "Filtered Out";
-                polygons.features[i].properties.status = "FilteredOut";
-                var removedSoldHomes = this.soldLots.filter(
-                  (e) => e.job_no == polygons.features[i].properties.jobfile
-                ); //this is differet type sold homes(sold_lots post tye)
-                if (removedSoldHomes.length > 0) {
-                  polygons.features[i].properties.name = "Sold";
-                  polygons.features[i].properties.status = "Sold";
-                }
+                polygons.features[i].properties.name = "Available";
+                polygons.features[i].properties.status = "Available";
               }
+              // else {
+              //   polygons.features[i].properties.name = "Filtered Out";
+              //   polygons.features[i].properties.status = "FilteredOut";
+              //   var removedSoldHomes = this.soldLots.filter(
+              //     (e) => e.job_no == polygons.features[i].properties.jobfile
+              //   ); //this is differet type sold homes(sold_lots post tye)
+              //   if (removedSoldHomes.length > 0) {
+              //     polygons.features[i].properties.name = "Sold";
+              //     polygons.features[i].properties.status = "Sold";
+              //   }
+              // }
             }
             polygons.features[i].properties.home = home[0];
+            console.log("home--", home);
           } else {
             polygons.features[i].properties.name = "Not Available";
             if (polygons.features[i].properties.additionalType) {

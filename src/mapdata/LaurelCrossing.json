@@ -33890,7 +33890,7 @@
         "Block": 12,
         "Lot_Number": 69,
         "Area_ha_": 0.0344,
-        "jobfile": null
+        "jobfile": "110012"
       },
       "geometry": {
         "type": "MultiPolygon",
