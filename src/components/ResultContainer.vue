@@ -742,6 +742,7 @@ export default {
         coming_soon: this.is_coming_soon,
         is_price_reduced: this.$store.state.filter.is_price_reduced,
         is_promotion: this.$store.state.filter.is_promotion,
+        is_builtgreen: this.$store.state.filter.is_builtgreen,
         is_guaranted: this.$store.state.filter.is_guaranted,
         isFourPlusBeds: this.$store.state.filter.isFourPlusBeds,
         isUnder400: this.$store.state.filter.isUnder400,
