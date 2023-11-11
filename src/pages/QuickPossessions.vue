@@ -178,7 +178,6 @@ export default {
       let style = window.getComputedStyle(
         document.getElementsByClassName("map-container")[0]
       );
-      console.log("items--", items);
       var itemIds = map(items, "id");
       if (style.display === "none") {
         // console.log("onresult-quickpossession", items);

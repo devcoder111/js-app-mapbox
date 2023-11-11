@@ -8,7 +8,18 @@
   "features": [
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10182" },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10182",
+        "home_model": "Summer",
+        "elevation": "R4",
+        "price": "415900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1701",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Summer-P6-web.jpg",
+        "status": "available"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -26,7 +37,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10184",
+        "home_model": "Sansa II",
+        "elevation": "R4",
+        "price": "415900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1557",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Sansa-II-Exterior-Rendering.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -44,7 +66,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10186" },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10186",
+        "home_model": "Summer",
+        "elevation": "R4",
+        "price": "419900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1701",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Summer-P6-web.jpg",
+        "status": "available"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -62,7 +95,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10188" },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10188",
+        "home_model": "Sylvan",
+        "elevation": "R4",
+        "price": "407900",
+        "beds": "4",
+        "baths": "3",
+        "sqft": "1584",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/SYLVAN-WIDESCREEN-Reduced.jpg",
+        "status": "available"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -80,7 +124,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10190",
+        "home_model": "Stellar",
+        "elevation": "R4",
+        "price": "374900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1410",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Stellar-wide-flipped.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -98,7 +153,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10192" },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10192",
+        "home_model": "Sansa II",
+        "elevation": "R4",
+        "price": "402900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1557",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Sansa-II-Exterior-Rendering.jpg",
+        "status": "available"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -116,7 +182,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10194" },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10188",
+        "home_model": "STAR",
+        "elevation": "R4",
+        "price": "359900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1228",
+        "doorcrasher": true,
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/STAR-WEB-cropped-Reduced-Cover-Image.jpg"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -134,7 +211,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10196" },
+      "properties": {
+        "Lot_Number": "18/3/UNREG",
+        "jobfile": "10196",
+        "home_model": "SANSA",
+        "elevation": "R5",
+        "price": "378900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1477",
+        "doorcrasher": true,
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Sansa-wide-flipped.jpg"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -152,7 +240,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10198" },
+      "properties": {
+        "Lot_Number": "20/3/UNREG",
+        "jobfile": "10198",
+        "home_model": "SANSA",
+        "elevation": "R4",
+        "price": "374900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1477",
+        "doorcrasher": true,
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Sansa-wide-flipped.jpg"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -170,7 +269,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10200" },
+      "properties": {
+        "Lot_Number": "22/3/UNREG",
+        "jobfile": "10200",
+        "home_model": "SANSA",
+        "elevation": "R5",
+        "price": "377900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1477",
+        "doorcrasher": true,
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Sansa-wide-flipped.jpg"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -188,7 +298,11 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": null,
+        "jobfile": "10203",
+        "type": "showhome"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -206,7 +320,11 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": null,
+        "jobfile": "10204",
+        "type": "showhome"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -226,7 +344,11 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": null,
+        "jobfile": "10201",
+        "type": "showhome"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -244,7 +366,11 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": null,
+        "jobfile": "10202",
+        "type": "showhome"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -262,7 +388,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10199" },
+      "properties": {
+        "Lot_Number": "21/3/UNREG",
+        "jobfile": "10199",
+        "home_model": "SANSA II",
+        "elevation": "R3",
+        "price": "387900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1557",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Sansa-II-Exterior-Rendering.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -280,7 +417,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10197" },
+      "properties": {
+        "Lot_Number": "19/3/UNREG",
+        "jobfile": "10197",
+        "home_model": "SUMMER",
+        "elevation": "R2",
+        "price": "399900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1701",
+        "doorcrasher": true,
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Summer-P6-web.jpg"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -298,7 +446,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10195" },
+      "properties": {
+        "Lot_Number": "17/3/UNREG",
+        "jobfile": 10195,
+        "home_model": "SANSA II",
+        "elevation": "R3",
+        "price": "384900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1557",
+        "doorcrasher": true,
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Sansa-II-Exterior-Rendering.jpg"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -316,7 +475,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10193",
+        "home_model": "Sansa",
+        "elevation": "R4",
+        "price": "387900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1477",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Sansa-wide-flipped.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -334,7 +504,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10191" },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10191",
+        "home_model": "Sansa",
+        "elevation": "R4",
+        "price": "389900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1477",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Sansa-wide-flipped.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -352,7 +533,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10189" },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10189",
+        "home_model": "Sansa II",
+        "elevation": "R4",
+        "price": "397900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1557",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Sansa-II-Exterior-Rendering.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -370,7 +562,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10187" },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10187",
+        "home_model": "Sansa",
+        "elevation": "R4",
+        "price": "467900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1477",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Sansa-wide-flipped.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -388,7 +591,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10185" },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10185",
+        "home_model": "Sylvan",
+        "elevation": "R4",
+        "price": "409900",
+        "beds": "4",
+        "baths": "3",
+        "sqft": "1564",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/SYLVAN-WIDESCREEN-Reduced.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -406,7 +620,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10183" },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10183",
+        "home_model": "Sansa",
+        "elevation": "R4",
+        "price": "462900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1477",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Sansa-wide-flipped.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -424,7 +649,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10181",
+        "home_model": "Sansa II",
+        "elevation": "R4",
+        "price": "474900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1557",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Sansa-II-Exterior-Rendering.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -449,7 +685,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10179" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -467,7 +703,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10177" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -485,7 +721,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10175" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -503,7 +739,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10173" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -521,7 +757,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10171" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -539,7 +775,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10169" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -557,7 +793,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10167" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -575,7 +811,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10166" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -595,7 +831,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10168" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -613,7 +849,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10170" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -631,7 +867,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10172" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -649,7 +885,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10174" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -667,7 +903,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10176" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -685,7 +921,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10178" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -703,7 +939,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10180" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1438,7 +1674,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10137" },
+      "properties": { "Lot_Number": null, "jobfile": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1542,7 +1778,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": null,
+        "home_model": "Assurance",
+        "elevation": "R4",
+        "price": "589900",
+        "beds": "5",
+        "baths": "2.5",
+        "sqft": "2128",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Assurance-.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1573,7 +1820,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10142",
+        "home_model": "Affinity",
+        "elevation": "R4",
+        "price": "482900",
+        "beds": "4",
+        "baths": "2.5",
+        "sqft": "2005",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Affinity-WIDESCREEN.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1605,7 +1863,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10143" },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10143",
+        "home_model": "Allure",
+        "elevation": "R4",
+        "price": "459900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1667",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Allure.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1641,7 +1910,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": "29/4/UNREG",
+        "jobfile": "10144",
+        "home_model": "ASSET",
+        "elevation": "R3",
+        "price": "424900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1559",
+        "doorcrasher": true,
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/ASSET-B-0002-WEB-1-2-1.png"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1668,7 +1948,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": "30/4/UNREG",
+        "jobfile": "10145",
+        "home_model": "ALLURE",
+        "elevation": "R2",
+        "price": "449900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1830",
+        "doorcrasher": true,
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Allure.jpg"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1690,7 +1981,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": "31/4/UNREG",
+        "jobfile": "10146",
+        "home_model": "ASCEND 22",
+        "elevation": "R5",
+        "price": "434900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1632",
+        "doorcrasher": true,
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/ASCEND-B-Isolation-1.png"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1708,7 +2010,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10147" },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10147",
+        "home_model": "Allure",
+        "elevation": "R4",
+        "price": "457900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1830",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Allure.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1726,7 +2039,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10148",
+        "home_model": "Asset",
+        "elevation": "R4",
+        "price": "434900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1559",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/ASSET-B-0002-WEB-1-2-1.png",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1744,7 +2068,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10149",
+        "home_model": "Affinity",
+        "elevation": "R4",
+        "price": "479900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "2005",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Affinity-WIDESCREEN.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1762,7 +2097,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10150",
+        "home_model": "Asscend 22",
+        "elevation": "R4",
+        "price": "447900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "1632",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Ascend-22-.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1780,7 +2126,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10151" },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10151",
+        "home_model": "Allure",
+        "elevation": "R4",
+        "price": "459900",
+        "beds": "4",
+        "baths": "2.5",
+        "sqft": "1830",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Allure.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1798,7 +2155,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10152",
+        "home_model": "Assurance",
+        "elevation": "R4",
+        "price": "519900",
+        "beds": "4",
+        "baths": "2.5",
+        "sqft": "2263",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Assurance-.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1847,7 +2215,11 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": null,
+        "jobfile": "10206",
+        "type": "showhome"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1865,7 +2237,11 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": null,
+        "jobfile": "10207",
+        "type": "showhome"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1883,7 +2259,11 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": null,
+        "jobfile": "10208",
+        "type": "showhome"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1901,7 +2281,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10209",
+        "home_model": "Apex",
+        "elevation": "R4",
+        "price": "517900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "2024",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Sansa-II-Exterior-Rendering.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1921,7 +2312,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10210",
+        "home_model": "Accolade",
+        "elevation": "R4",
+        "price": "582900",
+        "beds": "3",
+        "baths": "2.5",
+        "sqft": "2351",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Accolade-WIDESCREEN.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1943,7 +2345,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10211" },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10211",
+        "home_model": "Assurance",
+        "elevation": "R4",
+        "price": "549900",
+        "beds": "4",
+        "baths": "2.5",
+        "sqft": "2129",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Assurance-.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1965,7 +2378,18 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": "16/3/UNREG",
+        "jobfile": "10212",
+        "home_model": "Accolade",
+        "elevation": "R4",
+        "price": "577900",
+        "beds": "4",
+        "baths": "2.5",
+        "sqft": "2329",
+        "img": "https://www.sterlingedmonton.com/wp-content/uploads/Accolade-WIDESCREEN.jpg",
+        "status": "pending"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1990,8 +2414,34 @@
       "type": "Feature",
       "properties": {
         "Lot_Number": null,
+        "jobfile": null,
+        "additionalType": "polygon",
+        "title": "Pre-Sale Lots",
+        "subtitle": "",
+        "description": ""
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [-113.413986809764, 53.3728282, 0.0],
+              [-113.413433809764, 53.372591, 0.0],
+              [-113.413433809764, 53.371485, 0.0],
+              [-113.413986809764, 53.371308, 0.0],
+              [-113.413986809764, 53.3728282, 0.0]
+            ]
+          ]
+        ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "properties": {
+        "Lot_Number": null,
         "additionalType": "point",
-        "title": "Lakerfront Brewery"
+        "title": "Old Yale Brewing Company"
       },
       "geometry": {
         "type": "Point",

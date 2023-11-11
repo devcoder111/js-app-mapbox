@@ -1,11 +1,11 @@
 <template>
   <div class="filter">
-    <a-button-group size="small" style="width: 100%;">
+    <a-button-group size="small" style="width: 100%">
       <a-button @click="show" :disabled="loading"
         >Community
         <span v-if="communities.length > 0">({{ communities.length }})</span>
         <a-icon
-          style="font-size: 11px;"
+          style="font-size: 11px"
           :type="visible ? 'caret-up' : 'caret-down'"
       /></a-button>
       <a-button
@@ -13,16 +13,22 @@
         :disabled="loading"
         v-if="communities.length > 0"
         @click="clear"
-        ><a-icon style="font-size: 11px;" type="close-circle"
+        ><a-icon style="font-size: 11px" type="close-circle"
       /></a-button>
     </a-button-group>
     <a-modal v-model="visible" :maskClosable="false">
       <h3>Select Communities</h3>
       <div class="modal-content">
         <a-checkbox-group @change="onChange" v-model="selected_communities">
-          <div v-for="area in areas" :key="area.id" style="padding: 20px 0;">
+          <div v-for="area in areas" :key="area.id" style="padding: 20px 0">
             <strong
-              style="font-size: 15px; display: block; padding-bottom: 5px; border-bottom: 1px solid #ddd; margin-bottom: 10px;"
+              style="
+                font-size: 15px;
+                display: block;
+                padding-bottom: 5px;
+                border-bottom: 1px solid #ddd;
+                margin-bottom: 10px;
+              "
               ><a-checkbox :value="area.id" @change="onChangeArea">{{
                 area.name
               }}</a-checkbox></strong

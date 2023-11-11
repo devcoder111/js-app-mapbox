@@ -389,7 +389,7 @@ export default {
     },
     quickFilter() {
       // this.$refs.resultContainer.refresh();
-      // this.$emit("onRefresh");
+      this.$emit("onRefresh");
     },
     onChange(checkedValues) {
       let $this = this;

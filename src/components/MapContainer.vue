@@ -4,6 +4,7 @@
       <a-button @click="backCommunities" class="customBtn">Back</a-button>
     </div>
     <div class="map-colors-info" v-if="this.$route.name == 'quick-possessions'">
+      <div class="map-color map-color-showhome"><span></span> Showhome</div>
       <div class="map-color map-color-available"><span></span> Available</div>
       <div class="map-color map-color-conditional"><span></span> Pending</div>
       <div class="map-color map-color-sold"><span></span> Sold</div>
@@ -41,6 +42,7 @@ export default {
   },
   data() {
     return {
+      isRefreshed: false, // isRefreshed is for calling api one time only
       startingLoadData: false,
       map: {},
       communities: {},
@@ -110,7 +112,7 @@ export default {
         el.style.backgroundImage = `url(${require("../assets/home-pin.png")})`;
         pin.appendChild(el);
         el.addEventListener("click", () => {
-          // this.selectCommunity(community);
+          this.selectCommunity(community);
           this.$store.state.filter.communities = [community.id];
         });
 
@@ -120,7 +122,6 @@ export default {
       }
     });
     bus.$on("homeItemhover", (itemid) => {
-      console.log("homeItemhover-", itemid);
       if (this.map.getLayer("polygon-border")) {
         this.map.setPaintProperty("polygon-border", "line-opacity", [
           "case",
@@ -165,13 +166,34 @@ export default {
       },
     },
   },
+  // watch: {
+  //   "possessionFilters.communities"(val) {
+  //     console.log("mapcontainer-possessionfilter", this.possessionFilters);
+  //     // This is to distinguish between possessionFilters state changes in the mapcontainer and state changes in the Filtercontainer.
+  //     console.log("community changed", val);
+  //     this.startingLoadData = false;
+  //     this.onRefresh();
+  //   },
+  // },
+  // watch: {
+  //   possessionFilters: {
+  //     handler(val) {
+  //       console.log("community changed", val);
+  //       this.startingLoadData = false;
+  //       this.onRefresh();
+  //     },
+  //     deep: true,
+  //   },
+  // },
   watch: {
-    "possessionFilters.communities"(val) {
-      console.log("mapcontainer-possessionfilter", this.possessionFilters);
-      // This is to distinguish between possessionFilters state changes in the mapcontainer and state changes in the Filtercontainer.
-      console.log("community changed", val);
+    selectedCommunities: function (newVal, oldVal) {
+      // watch it
+      console.log("community changed", newVal, oldVal, this.isRefreshed);
       this.startingLoadData = false;
-      this.onRefresh();
+      if (this.isRefreshed == false) {
+        this.onRefresh();
+      }
+      this.isRefreshed = false;
     },
   },
   methods: {
@@ -216,10 +238,13 @@ export default {
       this.popupHome = new mapboxgl.Popup({
         closeButton: false,
       });
+
       this.map.on("moveend", () => {
         // Get the visible markers based on the current map bounds
         var zoomLevel = this.map.getZoom();
         console.log("moveend-:", zoomLevel);
+        //when map move, isRefreshed need to be set false
+        this.isRefreshed = false;
         if (zoomLevel > 14) {
           this.startingLoadData = true;
           var visibleMarkers = this.filterMarkersByBounds();
@@ -229,13 +254,17 @@ export default {
             !this.selectedCommunities.includes(visibleMarkers[0].name)
           ) {
             console.log("selectedCommunities-:", this.selectedCommunities);
+            this.selectedCommunities = [visibleMarkers[0].name];
             this.$store.state.filter.communities = [visibleMarkers[0].id];
           }
         } else {
+          console.log("else-selectedCommunities-:", this.selectedCommunities);
           if (this.startingLoadData) this.$store.state.filter.communities = [];
           this.startingLoadData = false;
-          this.selectedCommunities = [];
+          if (this.selectedCommunities.length != 0)
+            this.selectedCommunities = [];
         }
+
         // Do whatever you want with the visible markers data
       });
     },
@@ -372,7 +401,7 @@ export default {
             "fill-color": [
               "case",
               ["==", ["get", "type"], "showhome"],
-              "#30D5C8",
+              "#0077C8",
               ["==", ["get", "jobfile"], null],
               "grey",
               ["==", ["get", "status"], "Available"],
@@ -387,7 +416,7 @@ export default {
               "red",
               "#FC384A",
             ],
-            "fill-opacity": 0.5,
+            "fill-opacity": 0.6,
           },
         });
         this.map.addLayer({
@@ -521,7 +550,12 @@ export default {
         });
       });
       // when zoom out, don't fly
-      if (!this.startingLoadData)
+      console.log(
+        "this.startingLoadData-",
+        this.startingLoadData,
+        this.selectedCommunities
+      );
+      if (!this.startingLoadData || this.selectedCommunities.length > 0)
         this.map.flyTo({
           center: [community.lng, community.lat],
           zoom: 15,
@@ -548,14 +582,9 @@ export default {
       // });
     },
     refresh(items, soldLots) {
-      console.log(
-        "mapcontainer refresh-",
-        items,
-        this.possessionFilters,
-        this.communities
-      );
       this.filteredItems = items;
       this.soldLots = soldLots;
+      this.isRefreshed = true;
       if (
         this.possessionFilters.communities.length == 1 &&
         Object.keys(this.communities).length != 0

@@ -396,6 +396,7 @@ import { defineComponent } from "vue";
 import { HomeOutlined } from "@ant-design/icons-vue";
 import FilterContainer from "../components/FilterContainer.vue";
 import { bus } from "../app.js";
+import storejs from "store";
 
 export default {
   components: {
@@ -443,6 +444,7 @@ export default {
       result: [],
       originResult: [],
       soldLots: [],
+      qpsInCommunities: [],
       resultKeyValue: {},
       visibleItemIds: [],
       tableData: [],
@@ -706,7 +708,7 @@ export default {
         });
       }, 500);
     },
-    refresh() {
+    async refresh() {
       console.log("refresh--", this.$store.state.filter);
       let $this = this;
       this.loading = true;
@@ -749,18 +751,101 @@ export default {
         isUnder500: this.$store.state.filter.isUnder500,
         isLegalSuite: this.$store.state.filter.isLegalSuite,
       };
-      axios
-        .get("/wp-json/templatev2/v1/search", {
-          params: filterParams,
-        })
-        .then((response) => {
-          $this.result = response.data.items;
-          this.originResult = response.data.items;
-          this.soldLots = response.data.sold_lots;
+      var strFilterParams = JSON.stringify(filterParams);
+      var cachedResponse = await this.getCache(
+        this.getPostType(),
+        filterParams
+      );
+      console.log("cachedResponse-", cachedResponse);
+
+      if (cachedResponse != null) {
+        setTimeout(() => {
+          this.result = cachedResponse.items;
+          this.originResult = cachedResponse.items;
+          this.soldLots = cachedResponse.sold_lots;
+          this.qpsInCommunities = cachedResponse.quick_possessions;
           $this.changeOrder();
           $this.loading = false;
           this.$emit("onLoaded");
-        });
+        }, 500);
+      } else {
+        axios
+          .get("/wp-json/templatev2/v1/search", {
+            params: filterParams,
+          })
+          .then((response) => {
+            $this.result = response.data.items;
+            this.originResult = response.data.items;
+            this.soldLots = response.data.sold_lots;
+            this.qpsInCommunities = response.data.quick_possessions;
+            $this.changeOrder();
+            $this.loading = false;
+            this.$emit("onLoaded");
+            $this.setCache(this.getPostType(), filterParams, response.data);
+          })
+          .catch((e) => {
+            console.log("error", e);
+          });
+      }
+    },
+    async setCache(cacheMethod, cacheMethodParams, responseToCache) {
+      console.log("setcache-", cacheMethod, cacheMethodParams, responseToCache);
+      var post_type = this.getPostType();
+      let _datacache = storejs.get(post_type);
+      if (_datacache == null || _datacache == "") {
+        _datacache = [];
+      }
+      let _datacacheObj = _datacache;
+      let newObjForCache = {
+        params: JSON.stringify(cacheMethodParams),
+        response: responseToCache,
+        cachedDateTime: Date().toString(),
+      };
+      //check do we already have the record...
+      for (var i = 0; i < _datacacheObj.length; i++) {
+        var _record = _datacacheObj[i];
+        if (_record.params == JSON.stringify(cacheMethodParams)) {
+          _datacacheObj.splice(i, 1); //remove the old record....
+        }
+      }
+      _datacacheObj.push(newObjForCache);
+      let _datacacheStr = JSON.stringify(_datacacheObj);
+
+      storejs.set(post_type, _datacacheObj);
+    },
+    async getCache(cacheMethod, cacheMethodParams) {
+      let _datacache = await storejs.get(cacheMethod);
+      if (_datacache == null || _datacache == "") _datacache = [];
+      let _datacacheObj = _datacache;
+      console.log("_datacacheObj", _datacacheObj);
+      for (var i = 0; i < _datacacheObj.length; i++) {
+        var _record = _datacacheObj[i];
+
+        if (_record.params == JSON.stringify(cacheMethodParams)) {
+          let cachedDateTime = new Date(_record.cachedDateTime);
+          var difference = new Date().getTime() - cachedDateTime.getTime(); // This will give difference in milliseconds
+          var resultInMinutes = Math.round(difference / 60000);
+          console.log("resultInMinutes-", resultInMinutes);
+          if (resultInMinutes < 1440) {
+            // 1day
+            return _record.response;
+          } else {
+            console.log("too OLD");
+            //we remove from the recordset and resave
+            _datacacheObj.splice(i, 1);
+            storejs.set(cacheMethod, name);
+            return null;
+          }
+        }
+      }
+      if (_datacacheObj.length > 20) {
+        store.remove(cacheMethod);
+
+        _datacacheObj = {};
+      }
+      //if _datacacheObj.length>100...then clean up old data TODO
+      console.log("not found");
+      return null;
     },
     getPostType() {
       switch (this.$route.name) {
@@ -795,7 +880,7 @@ export default {
       }
       this.resultKeyValue = keyBy(this.result, "id");
       console.log("resultKeyValue-", this.resultKeyValue);
-      this.$emit("onResult", this.result, this.soldLots);
+      this.$emit("onResult", this.result, this.soldLots, this.qpsInCommunities);
     },
     setVisibleItems(itemIds) {
       console.log("setVisibleItems-", itemIds);

@@ -109,7 +109,7 @@
 <script type="text/javascript">
 import FilterContainer from "../components/FilterContainer.vue";
 import ResultContainer from "../components/ResultContainer.vue";
-import ShowhomeMapContainer from "../components/MapContainer.vue";
+import ShowhomeMapContainer from "../components/ShowhomeMapContainer.vue";
 import keyBy from "lodash/keyBy";
 import map from "lodash/map";
 import Button from "ant-design-vue/lib/button";
@@ -183,8 +183,8 @@ export default {
     onRefresh(filters) {
       this.$refs.resultContainer.refresh(filters);
     },
-    onResult(items, soldLots) {
-      console.log("onResult-showhoem", items, soldLots);
+    onResult(items, soldLots, qpsInCommunities) {
+      console.log("onResult-showhoem", items, soldLots, qpsInCommunities);
       let style = window.getComputedStyle(
         document.getElementsByClassName("map-container")[0]
       );
@@ -194,7 +194,7 @@ export default {
         this.$refs.resultContainer.setVisibleItems(itemIds);
       } else {
         // this.$refs.mapContainer.refreshMarkers(items);
-        this.$refs.mapContainer.refresh(items);
+        this.$refs.mapContainer.refresh(items, soldLots, qpsInCommunities);
         this.$refs.resultContainer.setVisibleItems(itemIds);
       }
     },

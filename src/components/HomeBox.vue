@@ -136,19 +136,18 @@
       </div>
       <div class="details">
         <div class="price" v-if="price_visible">
-          <div v-if="item.starting_from > 0">
-            ${{ formatMoney(item.starting_from) }}
+          <div v-if="item.original_price != ''" class="red-text">
+            NOW: ${{ formatMoney(home_price) }}
           </div>
-          <div v-if="item.starting_from == 0">
-            <div v-if="item.newstar_price > 0">
-              ${{ formatMoney(item.newstar_price) }}
-            </div>
-          </div>
+          <div v-else>${{ formatMoney(home_price) }}</div>
 
-          <div class="original-price">
-            <span v-if="item.original_price != ''">
+          <div v-if="item.original_price != ''">
+            <span class="original-price">
               ${{ formatMoney(item.original_price) }}
             </span>
+            <span class="reduced_price"
+              >${{ formatMoney(reduced_price) }} OFF</span
+            >
           </div>
           <!-- <div
             class="home-price"
@@ -564,6 +563,8 @@ export default {
       moneyFormatter: moneyFormatter,
       photo_index: 0,
       home_image: this.item.medium_image,
+      home_price: 0,
+      reduced_price: 0,
     };
   },
   computed: {
@@ -609,6 +610,15 @@ export default {
           this.item.offer_status === "Pending")
       );
     },
+  },
+  created() {
+    if (this.item.starting_from > 0) {
+      this.home_price = this.item.starting_from;
+    } else if (this.item.starting_from == 0 && this.item.newstar_price > 0)
+      this.home_price = this.item.newstar_price;
+    if (this.item.original_price != "")
+      this.reduced_price =
+        parseInt(this.item.original_price) - parseInt(this.home_price);
   },
   methods: {
     ...mapActions(["toggleFavorite"]),

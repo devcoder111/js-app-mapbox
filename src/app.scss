@@ -11,6 +11,9 @@
 .d-none{
   display: none;
 }
+.red-text{
+  color: red;
+}
 .loading_wrapper {
   position: absolute;
   top: 50%;
@@ -351,6 +354,9 @@ input.ant-input{
 
         &.map-color-available span {
           background: #52b788;
+        }
+        &.map-color-showhome span {
+          background: #0077C8;
         }
 
         &.map-color-sold span {
@@ -758,12 +764,20 @@ input.ant-input{
       min-height: 20px;
     }
     .original-price{
-      color: #666; 
-      font-size: 11px; 
+      color: red; 
+      font-size: 14px; 
       font-weight: 400; 
       text-decoration: line-through; 
       vertical-align: middle; 
       height: 19px;
+    }
+    .reduced_price{
+      color: white;
+      background: red;
+      padding: 0 7px;
+      font-style: italic;
+      font-size: 14px;
+      margin-left: 5px;
     }
     
 

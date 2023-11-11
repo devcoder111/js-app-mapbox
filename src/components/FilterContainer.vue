@@ -17,13 +17,6 @@
             v-for="community in area.communities"
             :key="community.id"
             :value="community.name"
-            @change="
-              setActive({
-                key: 'communities',
-                name: community.name,
-                value: String(community.id),
-              })
-            "
             >{{ community.name }}</a-select-option
           >
         </a-select-opt-group>
@@ -1445,36 +1438,56 @@ export default {
             }),
           });
         }
+        this.filter_communities = val.communities.flatMap((id) => {
+          var community = this.communities.find((c) => c.id == id);
+          return community ? [community.name] : [];
+        });
         console.log("current route--", this.$router);
       },
       deep: true,
     },
   },
-  mounted() {
+  async mounted() {
     let $this = this;
+    var cachedCommunities = await this.getCache("communities", "communities");
+    var responseCommunties = [];
+    if (cachedCommunities != null) {
+      responseCommunties = cachedCommunities;
+    } else {
+      await axios
+        .get("/wp-json/templatev2/v1/communities")
+        .then((response) => {
+          console.log("this-", this);
+          responseCommunties = response.data;
+          $this.setCache("communities", "communities", responseCommunties);
+        })
+        .finally(() => {
+          $this.loading = false;
+        });
+    }
 
-    axios
-      .get("/wp-json/templatev2/v1/communities")
-      .then((response) => {
-        console.log("this-", this);
-        if ($this.$route.name == "show-homes")
-          $this.communities = response.data.filter((obj) => {
-            return obj.have_showhomes == true;
-          });
-        else $this.communities = response.data;
-        console.log("$this.communities", $this.communities);
-        bus.$emit("communities", $this.communities);
-        response.data.forEach((community) => {
-          $this.areas[community.area].communities[community.id] = community;
-        });
-        axios.get("/wp-json/templatev2/v1/models").then((response) => {
-          $this.models = response.data;
-          $this.ready();
-        });
-      })
-      .finally(() => {
-        $this.loading = false;
+    if ($this.$route.name == "show-homes")
+      $this.communities = responseCommunties.filter((obj) => {
+        return obj.have_showhomes == true;
       });
+    else $this.communities = responseCommunties;
+    console.log("$this.communities", $this.communities);
+    bus.$emit("communities", $this.communities);
+    responseCommunties.forEach((community) => {
+      $this.areas[community.area].communities[community.id] = community;
+    });
+
+    var cachedModels = await this.getCache("models", "models");
+    var responseModels = [];
+    if (cachedModels != null) {
+      this.models = cachedModels;
+    } else {
+      await axios.get("/wp-json/templatev2/v1/models").then((response) => {
+        $this.models = response.data;
+        $this.setCache("models", "models", response.data);
+      });
+    }
+    $this.ready();
   },
   created() {
     // this.tabs = await new appConnections().data;
@@ -1492,6 +1505,64 @@ export default {
     });
   },
   methods: {
+    async setCache(cacheMethod, cacheMethodParams, responseToCache) {
+      console.log("setcache-", cacheMethod, cacheMethodParams, responseToCache);
+      let _datacache = storejs.get(cacheMethod);
+      if (_datacache == null || _datacache == "") {
+        _datacache = [];
+      }
+      let _datacacheObj = _datacache;
+      let newObjForCache = {
+        params: JSON.stringify(cacheMethodParams),
+        response: responseToCache,
+        cachedDateTime: Date().toString(),
+      };
+      //check do we already have the record...
+      for (var i = 0; i < _datacacheObj.length; i++) {
+        var _record = _datacacheObj[i];
+        if (_record.params == JSON.stringify(cacheMethodParams)) {
+          _datacacheObj.splice(i, 1); //remove the old record....
+        }
+      }
+      _datacacheObj.push(newObjForCache);
+      let _datacacheStr = JSON.stringify(_datacacheObj);
+
+      storejs.set(cacheMethod, _datacacheObj);
+    },
+    async getCache(cacheMethod, cacheMethodParams) {
+      let _datacache = await storejs.get(cacheMethod);
+      if (_datacache == null || _datacache == "") _datacache = [];
+      let _datacacheObj = _datacache;
+      console.log("_datacacheObj", _datacacheObj);
+      for (var i = 0; i < _datacacheObj.length; i++) {
+        var _record = _datacacheObj[i];
+
+        if (_record.params == JSON.stringify(cacheMethodParams)) {
+          let cachedDateTime = new Date(_record.cachedDateTime);
+          var difference = new Date().getTime() - cachedDateTime.getTime(); // This will give difference in milliseconds
+          var resultInMinutes = Math.round(difference / 60000);
+          console.log("resultInMinutes-", resultInMinutes);
+          if (resultInMinutes < 1440) {
+            // 1day
+            return _record.response;
+          } else {
+            console.log("too OLD");
+            //we remove from the recordset and resave
+            _datacacheObj.splice(i, 1);
+            storejs.set(cacheMethod, name);
+            return null;
+          }
+        }
+      }
+      if (_datacacheObj.length > 20) {
+        store.remove(cacheMethod);
+
+        _datacacheObj = {};
+      }
+      //if _datacacheObj.length>100...then clean up old data TODO
+      console.log("not found");
+      return null;
+    },
     applyFilter() {
       this.refresh(false);
       this.closeFilters();
@@ -1690,18 +1761,27 @@ export default {
       console.log("fileters--", filters);
       // this is for converting from model's id array to model's title array
       if (filters != undefined) {
-        this.filter_modelids = filters.model_ids
-          .map((id) => {
-            var model = $this.models.find((m) => m.id === id);
-            return model ? model.title : null;
-          })
-          .filter((id) => id !== null);
-        this.filter_communities = filters.communities
-          .map((id) => {
-            var community = $this.communities.find((c) => c.id == id);
-            return community ? community.name : null;
-          })
-          .filter((id) => id !== null);
+        // this.filter_modelids = filters.model_ids
+        //   .map((id) => {
+        //     var model = $this.models.find((m) => m.id === id);
+        //     return model ? model.title : null;
+        //   })
+        //   .filter((id) => id !== null);
+        this.filter_modelids = filters.model_ids.flatMap((id) => {
+          var model = this.models.find((m) => m.id === id);
+          return model ? [model.title] : [];
+        });
+
+        // this.filter_communities = filters.communities
+        //   .map((id) => {
+        //     var community = $this.communities.find((c) => c.id == id);
+        //     return community ? community.name : null;
+        //   })
+        //   .filter((id) => id !== null);
+        this.filter_communities = filters.communities.flatMap((id) => {
+          var community = this.communities.find((c) => c.id == id);
+          return community ? [community.name] : [];
+        });
       } else {
         this.filter_modelids = [];
         this.filter_communities = [];
@@ -1918,11 +1998,12 @@ export default {
       var ids = checkedValues
         .map((name) => {
           var community = $this.communities.find((c) => c.name === name);
-          return community ? community.id : null;
+          return community ? String(community.id) : null;
         })
         .filter((id) => id !== null);
       console.log("onchange--", ids);
       $this.filter.communities = ids;
+      $this.$store.state.filter.communities = ids;
       // Object.values(this.areas).forEach((area) => {
       //   let communityIds = Object.keys(area.communities).map((key) => {
       //     return parseInt(key);
