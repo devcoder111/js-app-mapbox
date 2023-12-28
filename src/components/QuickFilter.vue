@@ -214,6 +214,22 @@
         >Clear All</a-button
       >
     </div>
+    <div
+      class="quick_filter_btn_wrapp"
+      v-if="this.$route.name === 'quick-possessions'"
+    >
+      <a-button class="quickfiltersBtn mapviewBtn" @click="gotoMappage()"
+        ><a-icon type="environment" />Map View</a-button
+      >
+    </div>
+    <div
+      class="quick_filter_btn_wrapp"
+      v-if="this.$route.name === 'quick-possessions-map'"
+    >
+      <a-button class="quickfiltersBtn mapviewBtn" @click="gotoListingPage()"
+        >List View</a-button
+      >
+    </div>
   </div>
 </template>
 
@@ -311,6 +327,7 @@ export default {
         colourboard: "",
         is_price_reduced: false,
         is_promotion: false,
+        is_builtgreen: false,
         is_guaranted: 0,
         isFourPlusBeds: false,
         isUnder400: false,
@@ -357,6 +374,13 @@ export default {
     },
   },
   methods: {
+    gotoMappage() {
+      // this.$router.push("/map-view");
+      this.$router.push({ name: "quick-possessions-map" });
+    },
+    gotoListingPage() {
+      this.$router.push({ name: "quick-possessions" });
+    },
     closeQuickFilter() {
       console.log("closeQuickFilter", "");
       if (this.isactiveFilterBtn == true) this.isactiveFilterBtn = false;

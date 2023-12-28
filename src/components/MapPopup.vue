@@ -4,7 +4,9 @@
       <div class="image-container">
         <img class="popup_image" :src="home.medium_image" />
         <div class="sale-ribbon" v-if="home.promotion_checkbox === true">
-          <img src="../assets/sale_badge.png" />
+          <img
+            src="https://www.sterlingedmonton.com/wp-content/uploads/Year-End-Super-Sale-QP-overlay-image.png"
+          />
         </div>
       </div>
       <div style="padding: 5px">
@@ -179,7 +181,7 @@ export default {
     right: 10px;
     transform: rotate(20deg);
     img {
-      width: 35px;
+      width: 80px;
       height: auto;
     }
   }

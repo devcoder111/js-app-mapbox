@@ -1,5 +1,5 @@
 <template>
-  <div class="result-container">
+  <div class="result-container result-container-without-map">
     <a-modal
       v-model="openGalleryModal"
       v-if="selectedHome"
@@ -129,7 +129,6 @@
         </div>
       </transition>
     </div>
-
     <div class="results">
       <div class="result-toolbar" v-if="!loading">
         <div
@@ -149,6 +148,7 @@
             <span>Filters</span>
           </div>
         </div>
+
         <div class="community-count-sort">
           <div style="display: flex; align-items: center">
             <span v-if="!loading" style="font-size: 18px"
@@ -258,59 +258,23 @@
         v-if="!loading && result.length > 0 && listingStyle === 'photos'"
       >
         <template>
-          <div
-            v-for="(item, index) in paginatedVisibleItems"
-            :key="index"
-            class="itemwrapper"
-          >
-            <home-box
-              :item="item"
-              v-if="isVisible(item.id)"
-              :key="item.id"
-              @openGallery="openGallery"
-              @mouseover.native="homeItemhover(item)"
-            />
-            <!-- <div
-              v-if="
-                (index > 0 && index % 15 === 0) ||
-                  (index === paginatedVisibleItems.length - 1 &&
-                    paginatedVisibleItems.length < 16)
-              "
-              class="subscribe-item"
-              @click="showHaveQuestionForm()"
+          <a-row :gutter="12" class="homes-list">
+            <a-col
+              :lg="24"
+              :xl="12"
+              v-for="(item, index) in paginatedVisibleItems"
+              :key="index"
+              class="itemwrapper"
             >
-              <h3>See New Homes First</h3>
-              <div style="width: 100%;">
-                <img src="../assets/img_subscribe.png" />
-              </div>
-              <a
-                @click="showSubscribeForm()"
-                size="small"
-                style="display: block; width: 150px; background: #0f6ecd; color: #fff; border-radius: 5px;padding: 4px 10px;"
-                >Subscribe Now</a
-              >
-            </div>
-            <div
-              v-if="
-                (index > 0 && index % 15 === 0) ||
-                  (index === paginatedVisibleItems.length - 1 &&
-                    paginatedVisibleItems.length < 16)
-              "
-              class="question-item"
-              @click="showHaveQuestionForm()"
-            >
-              <h3>Let us help you find your dream home</h3>
-              <div style="width: 100%;">
-                <img src="../assets/img_question.png" />
-              </div>
-              <a
-                @click="showHaveQuestionForm()"
-                size="small"
-                style="display: block; width: 150px; background: #0f6ecd; color: #fff; border-radius: 5px;padding: 4px 10px;"
-                >Get Started</a
-              >
-            </div> -->
-          </div>
+              <home-box
+                :item="item"
+                v-if="isVisible(item.id)"
+                :key="item.id"
+                @openGallery="openGallery"
+                @mouseover.native="homeItemhover(item)"
+              />
+            </a-col>
+          </a-row>
         </template>
       </div>
       <a-table
@@ -333,6 +297,7 @@
         />
       </div>
       <div v-show="loading">
+        <a-skeleton active avatar></a-skeleton>
         <a-skeleton active avatar></a-skeleton>
         <a-skeleton active avatar></a-skeleton>
         <a-skeleton active avatar></a-skeleton>
@@ -395,6 +360,7 @@ import "ant-design-vue/lib/switch/style/css";
 import { defineComponent } from "vue";
 import { HomeOutlined } from "@ant-design/icons-vue";
 import FilterContainer from "../components/FilterContainer.vue";
+import QuickFilter from "../components/QuickFilter.vue";
 import { bus } from "../app.js";
 import storejs from "store";
 
@@ -402,6 +368,7 @@ export default {
   components: {
     HomeOutlined,
     "filter-container": FilterContainer,
+    "quick-filter": QuickFilter,
     "a-select": Select,
     "a-select-option": Select.Option,
     "a-button": Button,
@@ -452,7 +419,7 @@ export default {
   },
   watch: {
     page() {
-      this.$el.scrollTo(0, 0);
+      this.$el.scrollIntoView();
     },
   },
   created() {
@@ -475,7 +442,7 @@ export default {
     is_job_file_filter_visible() {
       return (
         this.$route.name === "quick-possessions" ||
-        this.$route.name === "quick-possessions-map" ||
+        this.$route.name === "map-view" ||
         this.$route.name === "coming-soon"
       );
     },
@@ -754,7 +721,7 @@ export default {
       };
       var strFilterParams = JSON.stringify(filterParams);
       var cachedResponse = await this.getCache(
-        this.getPostType(),
+        this.getPostType() + "_withoutsolds",
         filterParams
       );
       console.log("cachedResponse-", cachedResponse);
@@ -768,10 +735,11 @@ export default {
           $this.changeOrder();
           $this.loading = false;
           this.$emit("onLoaded");
-        }, 500);
+        }, 100);
       } else {
+        //without searchWithoutSoldsdata data
         axios
-          .get("/wp-json/templatev2/v1/search", {
+          .get("/wp-json/templatev2/v1/searchWithoutSoldsdata", {
             params: filterParams,
           })
           .then((response) => {
@@ -782,7 +750,11 @@ export default {
             $this.changeOrder();
             $this.loading = false;
             this.$emit("onLoaded");
-            $this.setCache(this.getPostType(), filterParams, response.data);
+            $this.setCache(
+              this.getPostType() + "_withoutsolds",
+              filterParams,
+              response.data
+            );
           })
           .catch((e) => {
             console.log("error", e);
@@ -792,7 +764,7 @@ export default {
     async setCache(cacheMethod, cacheMethodParams, responseToCache) {
       console.log("setcache-", cacheMethod, cacheMethodParams, responseToCache);
       var post_type = this.getPostType();
-      let _datacache = storejs.get(post_type);
+      let _datacache = storejs.get(cacheMethod);
       if (_datacache == null || _datacache == "") {
         _datacache = [];
       }
@@ -812,7 +784,7 @@ export default {
       _datacacheObj.push(newObjForCache);
       let _datacacheStr = JSON.stringify(_datacacheObj);
 
-      storejs.set(post_type, _datacacheObj);
+      storejs.set(cacheMethod, _datacacheObj);
     },
     async getCache(cacheMethod, cacheMethodParams) {
       let _datacache = await storejs.get(cacheMethod);

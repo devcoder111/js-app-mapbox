@@ -1756,7 +1756,7 @@ export default {
         console.log("square_from-", this.square_from, this.square_to);
       } else {
         filters = storejs.get(this.$route.name + "_filter");
-        console.log("no fileters", filters);
+        console.log("no filters", filters);
       }
       console.log("fileters--", filters);
       // this is for converting from model's id array to model's title array
@@ -1952,8 +1952,8 @@ export default {
       this.filter.is_price_reduced = false;
       this.filtersApplied = [];
       this.refresh();
-      $(".filter-container").removeClass("mobile-filter-container");
-      $(".lf-base-content").removeClass("zindex-1001");
+
+      this.closeFilters();
     },
     disabledDate(date) {
       return moment() > date;
@@ -2024,9 +2024,9 @@ export default {
       // });
     },
     closeFilters() {
+      this.$emit("closeFilter");
       $(".filter-container").removeClass("mobile-filter-container");
       $(".lf-base-content").removeClass("zindex-1001");
-      this.$emit("closeFilter");
     },
     priceReducedStatusChanged(checked) {
       console.log("priceReducedStatusChanged", checked);

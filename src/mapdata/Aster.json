@@ -38210,7 +38210,7 @@
       "properties": {
         "AREA": 252.6844581687875,
         "LAYER": "aster_stage_6_lot",
-        "jobfile": null
+        "jobfile": "362022"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -38232,7 +38232,7 @@
       "properties": {
         "AREA": 252.68445815906347,
         "LAYER": "aster_stage_6_lot",
-        "jobfile": null
+        "jobfile": "362023"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -38254,7 +38254,7 @@
       "properties": {
         "AREA": 232.56206659899277,
         "LAYER": "aster_stage_6_lot",
-        "jobfile": null
+        "jobfile": "362024"
       },
       "geometry": {
         "type": "MultiPolygon",

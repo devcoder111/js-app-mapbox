@@ -184,40 +184,40 @@ const store = new Vuex.Store({
     }
 });
 
-firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-        let userRef = firebase.firestore().collection('users').doc(user.uid);
-        userRef.onSnapshot(doc => {
-            let data = doc.data();
-            if (data == null) {
-                userRef.set({favorite_homes_v2: JSON.stringify({}), favorite_communities_v2: JSON.stringify({}), saved_filters_v2: JSON.stringify({})}, {merge: true});
-            } else {
-                if (data != null && data.hasOwnProperty('favorite_communities_v2')) {
-                    store.dispatch('loadCommunityFavorites', JSON.parse(data.favorite_communities_v2));
-                }
-                if (data != null && data.hasOwnProperty('favorite_homes_v2')) {
-                    store.dispatch('loadFavorites', JSON.parse(data.favorite_homes_v2));
-                }
-                if (data != null && data.hasOwnProperty('saved_filters_v2')) {
-                    store.dispatch('loadSavedFilters', JSON.parse(data.saved_filters_v2));
-                }
-            }
-        });
-        storejs.watch('favorite_homes_v2', function (newValue, oldValue) {
-            userRef.set({favorite_homes_v2: JSON.stringify(newValue)}, {merge: true});
-        });
-        storejs.watch('favorite_communities_v2', function (newValue, oldValue) {
-            userRef.set({favorite_communities_v2: JSON.stringify(newValue)}, {merge: true});
-        });
-        storejs.watch('saved_filters_v2', function (newValue, oldValue) {
-            userRef.set({saved_filters_v2: JSON.stringify(newValue)}, {merge: true});
-        });
-    } else {
-        store.dispatch('loadCommunityFavorites', storejs.get('favorite_communities_v2'));
-        store.dispatch('loadFavorites', storejs.get('favorite_homes_v2'));
-        store.dispatch('loadSavedFilters', storejs.get('saved_filters_v2'));
-    }
-});
+// firebase.auth().onAuthStateChanged(function (user) {
+//     if (user) {
+//         let userRef = firebase.firestore().collection('users').doc(user.uid);
+//         userRef.onSnapshot(doc => {
+//             let data = doc.data();
+//             if (data == null) {
+//                 userRef.set({favorite_homes_v2: JSON.stringify({}), favorite_communities_v2: JSON.stringify({}), saved_filters_v2: JSON.stringify({})}, {merge: true});
+//             } else {
+//                 if (data != null && data.hasOwnProperty('favorite_communities_v2')) {
+//                     store.dispatch('loadCommunityFavorites', JSON.parse(data.favorite_communities_v2));
+//                 }
+//                 if (data != null && data.hasOwnProperty('favorite_homes_v2')) {
+//                     store.dispatch('loadFavorites', JSON.parse(data.favorite_homes_v2));
+//                 }
+//                 if (data != null && data.hasOwnProperty('saved_filters_v2')) {
+//                     store.dispatch('loadSavedFilters', JSON.parse(data.saved_filters_v2));
+//                 }
+//             }
+//         });
+//         storejs.watch('favorite_homes_v2', function (newValue, oldValue) {
+//             userRef.set({favorite_homes_v2: JSON.stringify(newValue)}, {merge: true});
+//         });
+//         storejs.watch('favorite_communities_v2', function (newValue, oldValue) {
+//             userRef.set({favorite_communities_v2: JSON.stringify(newValue)}, {merge: true});
+//         });
+//         storejs.watch('saved_filters_v2', function (newValue, oldValue) {
+//             userRef.set({saved_filters_v2: JSON.stringify(newValue)}, {merge: true});
+//         });
+//     } else {
+//         store.dispatch('loadCommunityFavorites', storejs.get('favorite_communities_v2'));
+//         store.dispatch('loadFavorites', storejs.get('favorite_homes_v2'));
+//         store.dispatch('loadSavedFilters', storejs.get('saved_filters_v2'));
+//     }
+// });
 
 new Vue({
     el: '#app',

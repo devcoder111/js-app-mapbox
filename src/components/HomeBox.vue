@@ -52,9 +52,11 @@
         </svg>
       </a-button>
 
-      <!-- <div class="sale-ribbon" v-if="item.promotion_checkbox === true">
-        <img src="../assets/sale_badge.png" />
-      </div> -->
+      <div class="sale-ribbon" v-if="item.promotion_checkbox === true">
+        <img
+          src="https://www.sterlingedmonton.com/wp-content/uploads/New-Years-Sale-QP-overlay-image.png"
+        />
+      </div>
       <div
         class="corner-ribbon top-left sticky red shadow"
         v-if="is_sold && is_conditional === false"
@@ -577,14 +579,19 @@ export default {
         return false;
       }
       return (
-        ["quick-possessions", "coming-soon"].indexOf(this.$route.name) > -1
+        ["quick-possessions", "coming-soon", "quick-possessions-map"].indexOf(
+          this.$route.name
+        ) > -1
       );
     },
     address_visible() {
       return this.$route.name !== "home-designs";
     },
     move_in_date_visible() {
-      return this.$route.name === "quick-possessions";
+      return (
+        this.$route.name === "quick-possessions" ||
+        this.$route.name === "quick-possessions-map"
+      );
     },
     is_coming_soon() {
       return this.$route.name === "coming-soon";
