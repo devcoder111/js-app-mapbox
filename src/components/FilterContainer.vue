@@ -545,11 +545,12 @@
         </a-row>
       </div>
       <div class="hide-mobile">
-        <a-row :gutter="16" class="features-wrapper">
-          <a-col :xs="{ span: 24 }" :lg="{ span: 6 }">
-            <div class="must-have-rooms-wrapper">
-              <p>Must Have Rooms:</p>
-              <a-checkbox-group v-model="filter.features">
+        <a-checkbox-group v-model="filter.features" style="display: block">
+          <a-row :gutter="16" class="features-wrapper">
+            <a-col :xs="{ span: 24 }" :lg="{ span: 6 }">
+              <div class="must-have-rooms-wrapper">
+                <p>Must Have Rooms:</p>
+
                 <div>
                   <a-checkbox
                     value="mudroom"
@@ -628,13 +629,12 @@
                     >Main Floor Bedroom</a-checkbox
                   >
                 </div>
-              </a-checkbox-group>
-            </div>
-          </a-col>
-          <a-col :xs="{ span: 24 }" :lg="{ span: 18 }" style="display: flex">
-            <div class="other-have-rooms-wrapper">
-              <p>Other must-haves:</p>
-              <a-checkbox-group v-model="filter.features">
+              </div>
+            </a-col>
+            <a-col :xs="{ span: 24 }" :lg="{ span: 18 }" style="display: flex">
+              <div class="other-have-rooms-wrapper">
+                <p>Other must-haves:</p>
+
                 <a-row>
                   <a-col :span="8">
                     <div>
@@ -838,10 +838,10 @@
                     </div>
                   </a-col>
                 </a-row>
-              </a-checkbox-group>
-            </div>
-          </a-col>
-        </a-row>
+              </div>
+            </a-col>
+          </a-row>
+        </a-checkbox-group>
       </div>
       <div class="hide-desktop">
         <a-row :gutter="16" class="features-wrapper">

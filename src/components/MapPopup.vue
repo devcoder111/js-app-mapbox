@@ -48,7 +48,7 @@
           </div>
         </div>
         <div class="details">
-          <div class="price" v-if="price_visible">
+          <div class="price" v-if="price_visible && home.price != 0">
             <div class="original-price">
               <span v-if="home.original_price != ''">
                 ${{ formatMoney(home.original_price) }}
@@ -143,6 +143,7 @@ export default {
   },
   computed: {
     price_visible() {
+      console.log("dd-", this);
       if (this.is_sold || this.is_conditional) {
         return false;
       } else return true;

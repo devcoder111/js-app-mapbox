@@ -52,9 +52,14 @@
         </svg>
       </a-button>
 
-      <div class="sale-ribbon" v-if="item.promotion_checkbox === true">
+      <!-- <div class="sale-ribbon" v-if="item.promotion_checkbox === true">
         <img
           src="https://www.sterlingedmonton.com/wp-content/uploads/New-Years-Sale-QP-overlay-image.png"
+        />
+      </div> -->
+      <div class="open-hour-ribbon" v-if="item.open_hour != ''">
+        <img
+          src="https://www.sterlingedmonton.com/wp-content/uploads/open-house-mock-ups-web-.png"
         />
       </div>
       <div
