@@ -26469,7 +26469,7 @@
         "Lot_Number": 54,
         "block": 7,
         "area_ha": 0.02533941366,
-        "jobfile": null
+        "jobfile": "362045"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -26493,7 +26493,7 @@
         "Lot_Number": 55,
         "block": 7,
         "area_ha": 0.02533896815,
-        "jobfile": null
+        "jobfile": "362046"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -26878,7 +26878,7 @@
         "Lot_Number": 56,
         "block": 7,
         "area_ha": 0.02314937571,
-        "jobfile": null
+        "jobfile": "362047"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -27829,7 +27829,7 @@
         "Lot_Number": 58,
         "block": 7,
         "area_ha": 0.05223335867,
-        "jobfile": null
+        "jobfile": "362049"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -34505,7 +34505,7 @@
       "properties": {
         "AREA": 394.07743655926311,
         "LAYER": "aster_stage_6_lot",
-        "jobfile": null
+        "jobfile": "360004"
       },
       "geometry": {
         "type": "MultiPolygon",

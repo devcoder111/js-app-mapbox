@@ -1022,6 +1022,53 @@
         <a class="clear-btn" @click.prevent="clearAll">Clear all filters</a>
       </div>
     </div>
+
+    <div class="models-send-msg-form">
+      <a-row type="flex" justify="center" align="middle">
+        <a-col :span="8">
+          <img
+            src="https://www.sterlingedmonton.com/wp-content/uploads/Sterling-Homes-Black-Grey-Qualico-Company-.png"
+            class="contracter-img"
+          />
+        </a-col>
+        <a-col :span="16">
+          <div class="send-msg-form-header font-bold">
+            <div style="font-size: 20px">Make your home, your own</div>
+            <div style="font-size: 16px">
+              <a href="tel:780-800-7594">780-800-7594</a>
+            </div>
+          </div>
+        </a-col>
+      </a-row>
+      <p class="font-bold" style="padding-top: 5px">
+        Interested in personalizing your home? Choose your floorplan and
+        personlize it to your needs with a pre-sale. Please fill out this form
+        and we'll be in touch right away to guide you through the process.
+      </p>
+      <a-input
+        placeholder="Email"
+        style="width: 100%; margin-bottom: 10px"
+        v-model="form_email"
+        class="form_email"
+      >
+      </a-input>
+      <a-textarea
+        v-model="form_msg"
+        placeholder="Ask us a question"
+        :rows="4"
+      />
+
+      <a class="send-msg-btn" @click.prevent="sendMessage">Send Message</a>
+      <div v-if="success_msg != ''" class="blue-text">
+        {{ success_msg }}
+      </div>
+      <div class="font-bold">Talk to a real person</div>
+      <div class="color-gray">
+        Your message isn't going to the inbox abyss, never to be seen or heard
+        of again. At Sterling Homes, we provide the exceptional service we'd
+        want to experience ourselves.
+      </div>
+    </div>
   </div>
 </template>
 
@@ -1057,6 +1104,10 @@ export default {
   },
   data() {
     return {
+      success_msg: "",
+      openMessageModal: false,
+      form_msg: "",
+      form_email: "",
       goPossessionPage: false,
       search: "",
       communityMaxTagCount: 4,
@@ -1284,6 +1335,40 @@ export default {
     });
   },
   methods: {
+    sendMessage() {
+      var hubspotCookie = this.$cookies.get("hubspotutk");
+      var pageUri = window.location.origin + "/#" + this.$route.fullPath;
+      var pageName = "home-designs";
+      console.log("route-", hubspotCookie);
+      var form_data = {
+        email: this.form_email,
+        message: this.form_msg,
+        hutk: hubspotCookie,
+        pageUri,
+        pageName,
+      };
+      var params = new URLSearchParams();
+      params.append("email", this.form_email);
+      params.append("message", this.form_msg);
+      params.append("hutk", hubspotCookie);
+      params.append("pageUri", pageUri);
+      params.append("pageName", pageName);
+
+      console.log("form_data-", form_data);
+      this.success_msg = "";
+      axios
+        .post("/wp-json/hubspot/inventoryModelSendMessageForm", params)
+        .then((response) => {
+          console.log("inventoryModelSendMessageForm-", response);
+          var res = JSON.parse(response.data);
+          this.form_email = "";
+          this.form_msg = "";
+          if (res.status == "error") this.success_msg = res.message;
+          else
+            this.success_msg =
+              "Your message has been sent successfully! A member of our team will connect with you shortly.";
+        });
+    },
     applyFilter() {
       this.refresh(false);
       this.closeFilters();

@@ -76,6 +76,35 @@
     background: #3178c1;
   }
 }
+.models-send-msg-form{
+  border-radius: 30px;
+  border: 0.5px solid lightgray;
+  background: white;
+  box-shadow: 1px 1px 2px #d7d5d5;
+  padding: 15px;
+  margin:15px;
+  max-width: 600px;
+  margin-top: 32px;
+  .send-msg-form-header{
+    padding-left:5px;
+  }
+  .send-msg-btn {
+    display: block;
+    text-decoration: none;
+    color: white;
+    background: #5dadff;
+    padding: 5px 20px;
+    border-radius: 7px;
+    width: 100%;
+    text-align: center;
+    margin: 10px 0;
+    font-size: 25px;
+    color: black;
+  }
+  .send-msg-btn:hover {
+    background: #3178c1;
+  }
+}
 .font-bold{
   font-weight: bold;
 }
@@ -790,7 +819,16 @@ input.ant-input{
         height: auto;
       }
       
-  }
+    }
+    .popular-badge{
+      position: absolute;
+      right: 0;
+      top: 10px;
+      background: rgb(0, 117, 201);
+      color: white;
+      font-weight: 800;
+      padding: 3px 10px;
+    }
     .bg-grey{
       filter: grayscale(100%);
     }

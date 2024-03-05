@@ -51,13 +51,21 @@
           <polyline points="9 6 15 12 9 18"></polyline>
         </svg>
       </a-button>
-
-      <!-- <div class="sale-ribbon" v-if="item.promotion_checkbox === true">
+      <div
+        v-if="
+          $route.name == 'home-designs' && item.preferred_home_model == true
+        "
+        class="popular-badge"
+      >
+        POPULAR
+      </div>
+      <div class="sale-ribbon" v-if="item.promotion_checkbox === true">
         <img
-          src="https://www.sterlingedmonton.com/wp-content/uploads/New-Years-Sale-QP-overlay-image.png"
+          src="https://www.sterlingedmonton.com/wp-content/uploads/New-Years-Sale-QP-overlay-image-1.png"
         />
-      </div> -->
-      <div class="open-hour-ribbon" v-if="item.open_hour != ''">
+      </div>
+
+      <div class="open-hour-ribbon" v-if="showOpenhourRibbon">
         <img
           src="https://www.sterlingedmonton.com/wp-content/uploads/open-house-mock-ups-web-.png"
         />
@@ -143,12 +151,15 @@
       </div>
       <div class="details">
         <div class="price" v-if="price_visible">
-          <div v-if="item.original_price != ''" class="red-text">
+          <div
+            v-if="item.original_price != '' && reduced_price > 0"
+            class="red-text"
+          >
             NOW: ${{ formatMoney(home_price) }}
           </div>
           <div v-else>${{ formatMoney(home_price) }}</div>
 
-          <div v-if="item.original_price != ''">
+          <div v-if="item.original_price != '' && reduced_price > 0">
             <span class="original-price">
               ${{ formatMoney(item.original_price) }}
             </span>
@@ -385,9 +396,11 @@
             Located in <b>{{ item.community_name }} Community</b>
           </div>
           <div>What locals say:</div>
-          <div v-if="item.locals_say.pet_friendly == ''" class="truncateStr">
-            {{ item.intro }}
-          </div>
+          <div
+            v-if="item.locals_say.pet_friendly == ''"
+            class="truncateStr"
+            v-html="item.intro"
+          ></div>
           <a-row v-else :gutter="8" style="display: flex; flex-wrap: wrap">
             <a-col
               :xs="{ span: 24 }"
@@ -576,6 +589,22 @@ export default {
   },
   computed: {
     ...mapState(["favorites"]),
+    showOpenhourRibbon() {
+      if (this.item.open_hour_time != "") {
+        const openHourDate = moment(this.item.open_hour_time); // Example date, use your actual selected date
+        const currentDate = moment();
+        if (openHourDate.isBefore(currentDate, "day")) {
+          console.log("The selected date has passed.");
+          return false;
+        } else {
+          console.log("The selected date is today or in the future.");
+          return true;
+        }
+      } else {
+        console.log("showOpenhourRibbon-false.");
+        return false;
+      }
+    },
     is_favorited() {
       return this.favorites.hasOwnProperty(this.item.id);
     },
