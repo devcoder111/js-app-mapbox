@@ -27444,7 +27444,7 @@
         "Lot_Number": 57,
         "block": 7,
         "area_ha": 0.03400880877,
-        "jobfile": null
+        "jobfile": "362048"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -34906,7 +34906,7 @@
       "properties": {
         "AREA": 384.85533907154888,
         "LAYER": "aster_stage_6_lot",
-        "jobfile": null
+        "jobfile": "360003"
       },
       "geometry": {
         "type": "MultiPolygon",

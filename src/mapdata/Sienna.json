@@ -3513,7 +3513,7 @@
       "properties": {
         "AREA": 381.21849028560632,
         "LAYER": "sienna_stage_6B_lot",
-        "jobfile": null
+        "jobfile": "052009"
       },
       "geometry": {
         "type": "MultiPolygon",

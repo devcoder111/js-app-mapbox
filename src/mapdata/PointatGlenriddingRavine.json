@@ -15508,8 +15508,7 @@
         "Lot_Number": 4,
         "block": 28,
         "area_ha": 0.039267301511600003,
-        "jobfile": "9886",
-        "type": "showhome"
+        "jobfile": "9886"
       },
       "geometry": {
         "type": "MultiPolygon",

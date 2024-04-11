@@ -1220,7 +1220,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10118" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1238,7 +1238,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10120" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1256,7 +1256,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10117" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1274,7 +1274,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10119" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1292,7 +1292,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10122" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1348,7 +1348,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10124" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1379,7 +1379,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": { "Lot_Number": null, "jobfile": "10125" },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1474,7 +1474,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10128" },
+      "properties": { "Lot_Number": null, "jobfile": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1505,7 +1505,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10129" },
+      "properties": { "Lot_Number": null, "jobfile": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1538,7 +1538,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10130" },
+      "properties": { "Lot_Number": null, "jobfile": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1566,7 +1566,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10131" },
+      "properties": { "Lot_Number": null, "jobfile": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1584,7 +1584,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10132" },
+      "properties": { "Lot_Number": null, "jobfile": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1602,7 +1602,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10133" },
+      "properties": { "Lot_Number": null, "jobfile": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1620,7 +1620,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10134" },
+      "properties": { "Lot_Number": null, "jobfile": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1638,7 +1638,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10135" },
+      "properties": { "Lot_Number": null, "jobfile": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1656,7 +1656,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10136" },
+      "properties": { "Lot_Number": null, "jobfile": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1674,7 +1674,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10137" },
+      "properties": { "Lot_Number": null, "jobfile": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1692,7 +1692,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10138" },
+      "properties": { "Lot_Number": null, "jobfile": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1712,7 +1712,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10139" },
+      "properties": { "Lot_Number": null, "jobfile": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1745,7 +1745,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": "10140" },
+      "properties": { "Lot_Number": null, "jobfile": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1780,7 +1780,7 @@
       "type": "Feature",
       "properties": {
         "Lot_Number": "16/3/UNREG",
-        "jobfile": null,
+        "jobfile": "10141",
         "home_model": "Assurance",
         "elevation": "R4",
         "price": "589900",
@@ -2191,7 +2191,11 @@
     },
     {
       "type": "Feature",
-      "properties": { "Lot_Number": null, "jobfile": null },
+      "properties": {
+        "Lot_Number": null,
+        "jobfile": "10205",
+        "type": "showhome"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [

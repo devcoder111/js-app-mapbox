@@ -156,7 +156,12 @@
             >
             <div
               v-if="this.$route.name == 'quick-possessions'"
-              style="display: flex; justify-content: flex-start;  4px; padding: 4px; margin-left: 15px"
+              style="
+                display: flex;
+                justify-content: flex-start;
+                padding: 4px;
+                margin-left: 15px;
+              "
               class="hide-mobile"
             >
               <span style="margin-right: 10px">Hide sold homes</span>

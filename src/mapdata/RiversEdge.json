@@ -1978,7 +1978,7 @@
         "Block": 2,
         "Lot_Number": 19,
         "Area_ha_": 0.0252,
-        "jobfile": null
+        "jobfile": 452008
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2352,7 +2352,7 @@
         "Block": 2,
         "Lot_Number": 35,
         "Area_ha_": 0.0252,
-        "jobfile": null
+        "jobfile": "452024"
       },
       "geometry": {
         "type": "MultiPolygon",
