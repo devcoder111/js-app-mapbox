@@ -12,7 +12,9 @@ Vue.use(VueRouter);
 Vue.use(Button);
 Vue.use(Antd);
 Vue.use(VueLazyLoad, {
-  loading: "/dist/loading.gif",
+  preLoad: 1.3,
+  attempt: 1,
+  loading: "/dist/home_loading.gif",
 });
 Vue.use(VueCookies, { expires: "7d" });
 Vue.use(VueMq, {

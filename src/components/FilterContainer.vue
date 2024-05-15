@@ -91,10 +91,10 @@
               <div style="font-size: 10px">Homes ready within 4+ months</div>
             </a-select-option>
           </a-select>
-          <div style="padding: 10px 0">
+          <!-- <div style="padding: 10px 0">
             <label>Guaranteed date:</label>
             <a-switch @change="guarantedDateChanged" />
-          </div>
+          </div> -->
         </div>
         <div class="hometype-wrapper">
           <div>

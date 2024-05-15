@@ -1830,7 +1830,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "jobfile": null, "status": null },
+      "properties": { "jobfile": "028100", "status": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1848,7 +1848,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "jobfile": null, "status": null },
+      "properties": { "jobfile": "028101", "status": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -2267,7 +2267,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "jobfile": null, "status": null },
+      "properties": { "jobfile": "028003", "status": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -2285,7 +2285,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "jobfile": null, "status": null },
+      "properties": { "jobfile": "028004", "status": null },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [

@@ -491,7 +491,7 @@ export default {
       return this.$route.name === "home-designs";
     },
     move_in_date_visible() {
-      return this.$route.name === "quick-possessions";
+      return this.$route.name === "quick-possessions" || this.$route.name === "quick-possessions-map"; 
     },
     is_coming_soon() {
       return this.$route.name === "coming-soon";

@@ -38616,7 +38616,12 @@
     },
     {
       "type": "Feature",
-      "properties": { "lot": 17, "block": 22, "area_ha": 0.0, "jobfile": null },
+      "properties": {
+        "lot": 17,
+        "block": 22,
+        "area_ha": 0.0,
+        "jobfile": "192028"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -38634,7 +38639,12 @@
     },
     {
       "type": "Feature",
-      "properties": { "lot": 18, "block": 22, "area_ha": 0.0, "jobfile": null },
+      "properties": {
+        "lot": 18,
+        "block": 22,
+        "area_ha": 0.0,
+        "jobfile": "192029"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -38652,7 +38662,12 @@
     },
     {
       "type": "Feature",
-      "properties": { "lot": 19, "block": 22, "area_ha": 0.0, "jobfile": null },
+      "properties": {
+        "lot": 19,
+        "block": 22,
+        "area_ha": 0.0,
+        "jobfile": "192030"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -38670,7 +38685,12 @@
     },
     {
       "type": "Feature",
-      "properties": { "lot": 20, "block": 22, "area_ha": 0.0, "jobfile": null },
+      "properties": {
+        "lot": 20,
+        "block": 22,
+        "area_ha": 0.0,
+        "jobfile": "192031"
+      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [

@@ -2,7 +2,7 @@
   <div class="item" :id="'home-box-' + item.id">
     <div class="image-container">
       <img
-        :src="home_image"
+        v-lazy="home_image"
         :class="is_sold && is_conditional === false ? 'cover bg-grey' : 'cover'"
         @click.self="openGallery(item)"
         @contextmenu.prevent="$refs.menu.open"
@@ -233,7 +233,7 @@
           class="second-feature"
           v-if="item.features.seperate_entrance == '1'"
         >
-          <a-icon type="check" style="color: #5dadff"></a-icon>Side Entrace
+          <a-icon type="check" style="color: #5dadff"></a-icon>Side Entrance
         </div>
         <div class="second-feature" v-if="item.features.main_bedroom == '1'">
           <a-icon type="check" style="color: #5dadff"></a-icon>Main Floor
@@ -339,7 +339,7 @@
             <a-icon type="check" style="color: #5dadff"></a-icon>5-Piece Ensuite
           </div>
           <div v-if="item.features.seperate_entrance == '1'">
-            <a-icon type="check" style="color: #5dadff"></a-icon>Side Entrace
+            <a-icon type="check" style="color: #5dadff"></a-icon>Side Entrance
           </div>
           <div v-if="item.features.legal_suite == '1'">
             <a-icon type="check" style="color: #5dadff"></a-icon>Legal Suite
@@ -590,20 +590,7 @@ export default {
   computed: {
     ...mapState(["favorites"]),
     showOpenhourRibbon() {
-      if (this.item.open_hour_time != "") {
-        const openHourDate = moment(this.item.open_hour_time); // Example date, use your actual selected date
-        const currentDate = moment();
-        if (openHourDate.isBefore(currentDate, "day")) {
-          console.log("The selected date has passed.");
-          return false;
-        } else {
-          console.log("The selected date is today or in the future.");
-          return true;
-        }
-      } else {
-        console.log("showOpenhourRibbon-false.");
-        return false;
-      }
+      return this.item.show_open_hour;
     },
     is_favorited() {
       return this.favorites.hasOwnProperty(this.item.id);
