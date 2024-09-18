@@ -4,10 +4,9 @@
       <img
         v-lazy="home_image"
         :class="is_sold && is_conditional === false ? 'cover bg-grey' : 'cover'"
-        @click.self="openGallery(item)"
         @contextmenu.prevent="$refs.menu.open"
       />
-      <a-button
+      <!-- <a-button
         class="nav-left"
         v-if="item.gallery.length > 0"
         size="small"
@@ -50,7 +49,7 @@
           <path stroke="none" d="M0 0h24v24H0z"></path>
           <polyline points="9 6 15 12 9 18"></polyline>
         </svg>
-      </a-button>
+      </a-button> -->
       <div
         v-if="
           $route.name == 'home-designs' && item.preferred_home_model == true

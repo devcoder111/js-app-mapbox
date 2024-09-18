@@ -634,7 +634,7 @@
         "Lot_Number": 162,
         "block": 8,
         "area_ha": 0.03645526761,
-        "jobfile": null
+        "jobfile": "044209"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -657,7 +657,7 @@
         "Lot_Number": 161,
         "block": 8,
         "area_ha": 0.03432113006,
-        "jobfile": null
+        "jobfile": "044208"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -680,7 +680,7 @@
         "Lot_Number": 160,
         "block": 8,
         "area_ha": 0.03432113006,
-        "jobfile": null
+        "jobfile": "044207"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -703,7 +703,7 @@
         "Lot_Number": 159,
         "block": 8,
         "area_ha": 0.03645526761,
-        "jobfile": null
+        "jobfile": "044206"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -749,7 +749,7 @@
         "Lot_Number": 157,
         "block": 8,
         "area_ha": 0.03645526761,
-        "jobfile": null
+        "jobfile": "044205"
       },
       "geometry": {
         "type": "MultiPolygon",

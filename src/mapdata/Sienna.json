@@ -2578,7 +2578,7 @@
       "properties": {
         "AREA": 341.54466081913137,
         "LAYER": "sienna_stage_6B_lot",
-        "jobfile": null
+        "jobfile": "052007"
       },
       "geometry": {
         "type": "MultiPolygon",
